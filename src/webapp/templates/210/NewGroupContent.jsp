@@ -30,7 +30,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%
   // Extract the group name and members
   String name = request.getParameter( "group" );

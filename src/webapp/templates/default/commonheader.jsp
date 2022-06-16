@@ -26,7 +26,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%--
    This file provides a common header which includes the important JSPWiki scripts and other files.
    You need to include this in your template, within <head> and </head>.  It is recommended that

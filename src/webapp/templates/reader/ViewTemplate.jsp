@@ -21,7 +21,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="org.apache.wiki.api.core.*" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <!doctype html>
 <html lang="<c:out value='${prefs.Language}' default='en'/>" name="top">
   <head>

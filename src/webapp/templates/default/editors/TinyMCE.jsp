@@ -34,7 +34,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
 <wiki:RequestResource type="script" resource="/JSPWiki-211/scripts/tinymce/js/tinymce/tinymce.min.js" />
 <%--

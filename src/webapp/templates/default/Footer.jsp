@@ -22,7 +22,7 @@
 <%@ page import="org.apache.wiki.api.Release" %>
 <%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <div class="footer">
 
   <wiki:InsertPage page="CopyrightNotice"/>

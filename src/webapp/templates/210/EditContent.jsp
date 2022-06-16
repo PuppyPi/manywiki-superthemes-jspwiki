@@ -24,7 +24,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%
   Context c = Context.findContext( pageContext );
   int attCount = c.getEngine().getManager( AttachmentManager.class ).listAttachments(c.getPage()).size();

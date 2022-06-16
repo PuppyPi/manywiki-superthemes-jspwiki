@@ -31,7 +31,7 @@
 
 <%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%
   //FIXME: this should better move to UserPreferences.jsp but that doesn't seem to work. Ugh ?
   Context c = Context.findContext( pageContext );
