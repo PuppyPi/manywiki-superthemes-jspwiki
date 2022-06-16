@@ -73,7 +73,7 @@
     }
     String pagereq = wikiContext.getName();
 
-    ResourceBundle rb = Preferences.getBundle( wikiContext, "org/apache/wiki/i18n/core/CoreResources" );
+    ResourceBundle rb = Preferences.getBundle( wikiContext, "org.apache.wiki.i18n.core.CoreResources" );
     Session wikiSession = wikiContext.getWikiSession();
     String storedUser = wikiSession.getUserPrincipal().getName();
     String commentedBy = storedUser;

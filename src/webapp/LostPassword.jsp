@@ -115,7 +115,7 @@
         pageContext.setAttribute( Context.ATTR_CONTEXT, wikiContext, PageContext.REQUEST_SCOPE );
     }
 
-    ResourceBundle rb = Preferences.getBundle( wikiContext, "org/apache/wiki/i18n/core/CoreResources" );
+    ResourceBundle rb = Preferences.getBundle( wikiContext, "org.apache.wiki.i18n.core.CoreResources" );
 
     Session wikiSession = wikiContext.getWikiSession();
     String action = request.getParameter( "action" );

@@ -35,7 +35,7 @@
 <%@ page errorPage="/Error.jsp" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<fmt:setBundle basename="org/apache/wiki/i18n/core/CoreResources"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.core.CoreResources"/>
 <%!
     Logger log = LogManager.getLogger("JSPWiki");
 %>
@@ -55,7 +55,7 @@
 
     boolean changeReferences = false;
 
-    ResourceBundle rb = Preferences.getBundle( wikiContext, "org/apache/wiki/i18n/core/CoreResources" );
+    ResourceBundle rb = Preferences.getBundle( wikiContext, "org.apache.wiki.i18n.core.CoreResources" );
 
     if (request.getParameter("references") != null)
     {

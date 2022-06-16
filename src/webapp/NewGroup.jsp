@@ -64,7 +64,7 @@
             groupMgr.getGroup( group.getName() );
 
             // Oops! The group already exists. This is mischief!
-            ResourceBundle rb = Preferences.getBundle( wikiContext, "org/apache/wiki/i18n/core/CoreResources");
+            ResourceBundle rb = Preferences.getBundle( wikiContext, "org.apache.wiki.i18n.core.CoreResources");
             wikiSession.addMessage( GroupManager.MESSAGES_KEY,
                                     MessageFormat.format(rb.getString("newgroup.exists"),group.getName()));
         } catch( NoSuchPrincipalException e ) {
