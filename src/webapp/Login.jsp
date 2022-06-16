@@ -43,7 +43,7 @@
     Context wikiContext = Wiki.context().create( wiki, request, ContextEnum.WIKI_LOGIN.getRequestContext() );
     pageContext.setAttribute( Context.ATTR_CONTEXT, wikiContext, PageContext.REQUEST_SCOPE );
     Session wikiSession = wikiContext.getWikiSession();
-    ResourceBundle rb = Preferences.getBundle( wikiContext, "CoreResources" );
+    ResourceBundle rb = Preferences.getBundle( wikiContext, "org/apache/wiki/i18n/core/CoreResources" );
 
     // Set the redirect-page variable if one was passed as a parameter
     if( request.getParameter( "redirect" ) != null ) {

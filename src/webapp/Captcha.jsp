@@ -32,7 +32,7 @@
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<fmt:setBundle basename="CoreResources"/>
+<fmt:setBundle basename="org/apache/wiki/i18n/core/CoreResources"/>
 
 <%!
     Logger log = LogManager.getLogger("JSPWiki");

@@ -30,7 +30,7 @@
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page import="java.text.MessageFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<fmt:setBundle basename="CoreResources"/>
+<fmt:setBundle basename="org/apache/wiki/i18n/core/CoreResources"/>
 
 <%!
     Logger log = LogManager.getLogger("JSPWiki");
@@ -49,7 +49,7 @@ Session wikiSession = wikiContext.getWikiSession();
 installer.parseProperties();
 boolean validated = false;
 String password = null;
-ResourceBundle rb = Preferences.getBundle( wikiContext, "CoreResources" );
+ResourceBundle rb = Preferences.getBundle( wikiContext, "org/apache/wiki/i18n/core/CoreResources" );
 
 // If user hit "submit" button, validate and install them
 if( request.getParameter("submit") != null )
