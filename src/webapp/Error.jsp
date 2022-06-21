@@ -18,54 +18,7 @@
 --%>
 
 <%@ page isErrorPage="true" %>
-<%@ page import="org.apache.logging.log4j.Logger" %>
-<%@ page import="org.apache.logging.log4j.LogManager" %>
-<%@ page import="org.apache.wiki.api.core.Context" %>
-<%@ page import="org.apache.wiki.api.core.ContextEnum" %>
-<%@ page import="org.apache.wiki.api.core.Engine" %>
-<%@ page import="org.apache.wiki.api.spi.Wiki" %>
-<%@ page import="org.apache.wiki.util.FileUtil" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%!
-    Logger log = LogManager.getLogger("JSPWiki");
-%>
-<%
-    Engine wiki = Wiki.engine().find( getServletConfig() );
-    Context wikiContext = Wiki.context().create( wiki, request, ContextEnum.WIKI_ERROR.getRequestContext() );
-    String pagereq = wikiContext.getName();
-
-    response.setContentType("text/html; charset="+wiki.getContentEncoding() );
-
-    String msg = "An unknown error was caught by Error.jsp";
-
-    Throwable realcause = null;
-
-    msg = exception.getMessage();
-    if( msg == null || msg.length() == 0 )
-    {
-        msg = "An unknown exception "+exception.getClass().getName()+" was caught by Error.jsp.";
-    }
-
-    //
-    //  This allows us to get the actual cause of the exception.
-    //  Note the cast; at least Tomcat has two classes called "JspException"
-    //  imported in JSP pages.
-    //
-
-    if( exception instanceof javax.servlet.jsp.JspException )
-    {
-        log.debug("IS JSPEXCEPTION");
-        realcause = ((javax.servlet.jsp.JspException)exception).getCause();
-        log.debug("REALCAUSE="+realcause);
-    }
-
-    if( realcause == null ) realcause = exception;
-
-    log.debug("Error.jsp exception is: ",exception);
-
-
-    wikiContext.getWikiSession().addMessage( msg );
-%>
 
 <!doctype html>
 <html lang="<c:out value='${prefs.Language}' default='en'/>" name="top">
@@ -82,9 +35,9 @@
          <wiki:Messages div="error" />
       </dd>
       <dt>Exception</dt>
-      <dd><%=realcause.getClass().getName()%></dd>
+      <dd>${errorClassName}</dd>
       <dt>Place where detected</dt>
-      <dd><%=FileUtil.getThrowingMethod(realcause)%></dd>
+      <dd>${throwingMethod}</dd>
    </dl>
    <p>
    If you have changed the templates, please do check them.  This error message
