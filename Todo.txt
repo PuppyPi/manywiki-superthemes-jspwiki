@@ -1,6 +1,6 @@
 • just make things work X'D
 	• put things into tag files instead of using wiki:Include!
-• remove Java code from toplevel pages!
+	• remove Java code from toplevel pages!
 
 
 
