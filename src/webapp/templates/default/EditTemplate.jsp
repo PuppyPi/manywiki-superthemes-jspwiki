@@ -19,6 +19,7 @@
 
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <!doctype html>
@@ -40,22 +41,22 @@
     </wiki:CheckRequestContext>
   </title>
   <meta name="robots" content="noindex,follow" />
-  <wiki:Include page="commonheader.jsp"/>
+  <templateTags:commonheader pageContext="<%=pageContext%>" />
 </head>
 
 <body class="context-<wiki:Variable var='requestcontext' />" >
 
 <div class="container${prefs.Layout=='fixed' ? ' ' : '-fluid ' } ${prefs.Orientation}">
 
-  <wiki:Include page="Header.jsp" />
+  <templateTags:Header pageContext="<%=pageContext%>" />
   <div class="content" data-toggle="li#menu,.sidebar>.close" >
     <div class="page">
       <wiki:Content/>
-      <wiki:Include page="PageInfo.jsp"/>
+      <templateTags:PageInfo/>
     </div>
-    <wiki:Include page="Sidebar.jsp"/>
+    <templateTags:Sidebar pageContext="<%=pageContext%>" />
   </div>
-  <wiki:Include page="Footer.jsp" />
+  <templateTags:Footer/>
 
 </div>
 

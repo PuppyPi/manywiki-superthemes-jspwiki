@@ -23,6 +23,7 @@
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
@@ -45,7 +46,7 @@
 
 <%-- Login functionality --%>
 <wiki:UserCheck status="notauthenticated">
-<%--<wiki:Include page='LoginTab.jsp'/>--%>
+<%--<templateTags:LoginTab/>--%>
 
 <div class="tabs" >
 
@@ -184,7 +185,7 @@
 <c:set var="registerTab" value="${param.tab == 'register' ? 'data-activePane': ''}"/>
 <h3 ${registerTab} id="section-register"><fmt:message key="login.register.tab" /></h3>
 
-<%-- <wiki:Include page='ProfileTab.jsp'/> --%>
+<%-- <templateTags:ProfileTab pageContext="<%=pageContext%>" /> --%>
 <form action="<wiki:Link jsp='Login.jsp' format='url'><wiki:Param name='tab' value='register'/></wiki:Link>"
           id="editProfile"
        class="login-form"

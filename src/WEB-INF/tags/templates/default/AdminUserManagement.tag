@@ -17,10 +17,10 @@
     under the License.
 --%>
 
-<%@ page import="java.util.*" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.ui.admin.*" %>
-<%@ page errorPage="/Error.jsp" %>
+<%@ tag import="java.util.*" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="org.apache.wiki.ui.admin.*" %>
+<%-- <%@ tag errorPage="/Error.jsp" %> --%>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>

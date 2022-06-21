@@ -17,24 +17,25 @@
     under the License.
 --%>
 
-<%@ page import="java.security.Principal" %>
-<%@ page import="java.text.MessageFormat" %>
-<%@ page import="java.util.*" %>
-<%@ page import="org.apache.logging.log4j.Logger" %>
-<%@ page import="org.apache.logging.log4j.LogManager" %>
-<%@ page import="org.apache.wiki.api.core.Context" %>
-<%@ page import="org.apache.wiki.auth.*" %>
-<%@ page import="org.apache.wiki.auth.authorize.Group" %>
-<%@ page import="org.apache.wiki.auth.authorize.GroupManager" %>
-<%@ page import="org.apache.wiki.auth.permissions.GroupPermission" %>
-<%@ page import="org.apache.wiki.auth.authorize.GroupManager" %>
-<%@ page import="org.apache.wiki.preferences.Preferences" %>
-<%@ page import="org.apache.wiki.util.comparators.PrincipalComparator" %>
-<%@ page errorPage="/Error.jsp" %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ tag import="java.security.Principal" %>
+<%@ tag import="java.text.MessageFormat" %>
+<%@ tag import="java.util.*" %>
+<%@ tag import="org.apache.logging.log4j.Logger" %>
+<%@ tag import="org.apache.logging.log4j.LogManager" %>
+<%@ tag import="org.apache.wiki.api.core.Context" %>
+<%@ tag import="org.apache.wiki.auth.*" %>
+<%@ tag import="org.apache.wiki.auth.authorize.Group" %>
+<%@ tag import="org.apache.wiki.auth.authorize.GroupManager" %>
+<%@ tag import="org.apache.wiki.auth.permissions.GroupPermission" %>
+<%@ tag import="org.apache.wiki.auth.authorize.GroupManager" %>
+<%@ tag import="org.apache.wiki.preferences.Preferences" %>
+<%@ tag import="org.apache.wiki.util.comparators.PrincipalComparator" %>
+<%-- <%@ tag errorPage="/Error.jsp" %> --%>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%

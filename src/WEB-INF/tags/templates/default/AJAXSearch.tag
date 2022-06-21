@@ -17,25 +17,26 @@
     under the License.
 --%>
 
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="java.util.Collection" %>
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="org.apache.commons.lang3.*" %>
-<%@ page import="org.apache.logging.log4j.Logger" %>
-<%@ page import="org.apache.logging.log4j.LogManager" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.api.spi.Wiki" %>
-<%@ page import="org.apache.wiki.api.search.SearchResult" %>
-<%@ page import="org.apache.wiki.auth.*" %>
-<%@ page import="org.apache.wiki.auth.permissions.*" %>
-<%@ page import="org.apache.wiki.preferences.Preferences" %>
-<%@ page import="org.apache.wiki.search.SearchManager" %>
-<%@ page import="org.apache.wiki.ui.*" %>
+<%-- <%@ tag language="java" pageEncoding="UTF-8"%> --%>
+<%@ tag import="java.util.*" %>
+<%@ tag import="java.util.Collection" %>
+<%@ tag import="java.net.URLEncoder" %>
+<%@ tag import="org.apache.commons.lang3.*" %>
+<%@ tag import="org.apache.logging.log4j.Logger" %>
+<%@ tag import="org.apache.logging.log4j.LogManager" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="org.apache.wiki.api.spi.Wiki" %>
+<%@ tag import="org.apache.wiki.api.search.SearchResult" %>
+<%@ tag import="org.apache.wiki.auth.*" %>
+<%@ tag import="org.apache.wiki.auth.permissions.*" %>
+<%@ tag import="org.apache.wiki.preferences.Preferences" %>
+<%@ tag import="org.apache.wiki.search.SearchManager" %>
+<%@ tag import="org.apache.wiki.ui.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%!

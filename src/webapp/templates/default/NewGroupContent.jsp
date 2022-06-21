@@ -18,4 +18,5 @@
 --%>
 
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<wiki:Include page="PreferencesContent.jsp" ></wiki:Include>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+<templateTags:PreferencesContent pageContext="<%=pageContext%>" />

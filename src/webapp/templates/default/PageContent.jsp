@@ -21,6 +21,7 @@
 <%@ page import="org.apache.wiki.api.core.*" %>
 <%@ page import="org.apache.wiki.attachment.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
@@ -32,7 +33,7 @@
      but to be to the right of the nav on larger screens --%>
 <div class="page-content <wiki:Variable var='page-styles' default='' />">
 
-  <wiki:Include page="PageTab.jsp"/>
+  <templateTags:PageTab pageContext="<%=pageContext%>" />
 
   <wiki:PageType type="attachment">
     <div><%-- insert the actual attachement, image, etc... --%>

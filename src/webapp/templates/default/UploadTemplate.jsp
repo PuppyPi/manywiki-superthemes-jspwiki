@@ -21,6 +21,7 @@
 <%@ page import="org.apache.wiki.api.core.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
@@ -29,7 +30,7 @@
   <head>
 
   <title><fmt:message key="upload.title"><fmt:param><wiki:Variable var="applicationname"/></fmt:param></fmt:message></title>
-  <wiki:Include page="commonheader.jsp"/>
+  <templateTags:commonheader pageContext="<%=pageContext%>" />
   <meta name="robots" content="noindex,nofollow" />
 </head>
 
@@ -37,7 +38,7 @@
 
 <div class="container${prefs.Layout=='fixed' ? ' ' : '-fluid ' } ${prefs.Orientation} fixed-header">
 
-  <wiki:Include page="Header.jsp" />
+  <templateTags:Header pageContext="<%=pageContext%>" />
 
   <c:set var="sidebarState"><wiki:Variable var="sidebar" default="${prefs.Sidebar}" /></c:set>
   <c:set var="sidebarCookie" value="Sidebar" />
@@ -50,7 +51,7 @@
                                        data-toggle-pref="${sidebarCookie}" >
     <div class="page" role="main">
       <wiki:PageExists>
-        <wiki:Include page="AttachmentTab.jsp"/>
+        <templateTags:AttachmentTab pageContext="<%=pageContext%>" />
       </wiki:PageExists>
 
       <wiki:NoSuchPage>
@@ -61,11 +62,11 @@
         </div>
       </wiki:NoSuchPage>
 
-      <wiki:Include page="PageInfo.jsp"/>
+      <templateTags:PageInfo/>
     </div>
-    <wiki:Include page="Sidebar.jsp"/>
+    <templateTags:Sidebar pageContext="<%=pageContext%>" />
   </div>
-  <wiki:Include page="Footer.jsp" />
+  <templateTags:Footer/>
 
 </div>
 </body>

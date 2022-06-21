@@ -32,7 +32,7 @@
       <fmt:param><wiki:PageName /></fmt:param>
     </fmt:message>
   </title>
-  <%--<wiki:Include page="commonheader.jsp"/>--%>
+  <%--<templateTags:commonheader pageContext="<%=pageContext%>" />--%>
 <script type="text/javascript">//<![CDATA[
 /* Localized javascript strings: LocalizedStrings[] */
 <wiki:IncludeResources type="jslocalizedstrings"/>
@@ -84,7 +84,7 @@ String.I18N.PREFIX = "javascript.";
 <div class="container ${prefs.Orientation}">
 
   <div class="pagename"><wiki:Link><wiki:PageName/></wiki:Link></div>
-  <div class="page"><wiki:Include page="PageTab.jsp"/></div>
+  <div class="page"><templateTags:PageTab pageContext="<%=pageContext%>" /></div>
   <div class="copyright center"><wiki:InsertPage page="CopyrightNotice"/></div>
 
 </div>

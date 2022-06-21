@@ -24,11 +24,12 @@
 <%@ page import="org.apache.wiki.ui.admin.*" %>
 <%@ page errorPage="/Error.jsp" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <!doctype html>
 <html lang="en">
 <head>
 <title>JSPWiki administration</title>
-  <wiki:Include page="commonheader.jsp"/>
+  <templateTags:commonheader pageContext="<%=pageContext%>" />
   <link rel="stylesheet" media="screen, projection, print" type="text/css"
         href="<wiki:Link format='url' templatefile='admin/admin.css'/>"/>
 </head>
@@ -69,7 +70,7 @@ in your <code>jspwiki.properties</code> file.</div>
    </wiki:TabbedSection>
 
 <h3>Users</h3>
-   <wiki:Include page="admin/UserManagement.jsp"/>
+   <templateTags:AdminUserManagement/>
 
 <h3>Group</h3>
    <div>

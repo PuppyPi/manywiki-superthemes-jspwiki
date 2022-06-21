@@ -76,7 +76,6 @@
 
 <head>
   <title><wiki:Variable var="applicationname" />: <wiki:PageName /></title>
-  <%-- <wiki:Include page="commonheader.jsp"/> --%>
   <meta name="robots" content="noindex,nofollow" />
   <script type="text/javascript">
     function HumanCheckComplete(isHuman)

@@ -384,7 +384,7 @@
   <wiki:PageExists>
   <wiki:PageType type="page">
   <wiki:Tab id="attach" title="<%= attTitle %>" accesskey="a">
-    <templateTags:AttachmentTab/>
+    <templateTags:AttachmentTab pageContext="<%=pageContext%>" />
   </wiki:Tab>
   </wiki:PageType>
 

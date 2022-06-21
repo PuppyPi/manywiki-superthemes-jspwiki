@@ -17,14 +17,16 @@
     under the License.
 --%>
 
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.api.providers.WikiProvider" %>
-<%@ page import="org.apache.wiki.pages.PageManager" %>
-<%@ page import="org.apache.wiki.util.TextUtil" %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="org.apache.wiki.api.providers.WikiProvider" %>
+<%@ tag import="org.apache.wiki.pages.PageManager" %>
+<%@ tag import="org.apache.wiki.util.TextUtil" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
@@ -32,7 +34,7 @@
 
 <c:choose>
 <c:when test="${param.tab == 'attach'}">
-  <wiki:Include page="AttachmentTab.jsp"/>
+  <templateTags:AttachmentTab pageContext="<%=pageContext%>" />
 </c:when>
 <c:otherwise>
 

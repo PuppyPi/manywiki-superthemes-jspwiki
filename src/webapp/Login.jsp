@@ -160,7 +160,7 @@
 
     // If we've gotten here, the user hasn't authenticated yet.
     // So, find the login form and include it. This should be in the same directory
-    // as this page. We don't need to use the wiki:Include tag.
+    // as this page. We don't need to use a tagfile.
 
     response.setContentType("text/html; charset="+wiki.getContentEncoding() );
 

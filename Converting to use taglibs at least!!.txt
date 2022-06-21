@@ -20,11 +20,25 @@
 	<wiki:Include page="([^.]+)\.jsp" */>
 	<templateTags:$1/>
 
+• Find-and-Replace Regex:
+	<wiki:Include page='([^.]+)\.jsp' */>
+	<templateTags:$1/>
+
+• Find-and-Replace Regex:
+	<wiki:Include page="([^.]+)\.jsp" *></wiki:Include>
+	<templateTags:$1/>
+
+• Find-and-Replace Regex:
+	<wiki:Include page='([^.]+)\.jsp' *></wiki:Include>
+	<templateTags:$1/>
 
 
 
 
 
+
+
+• grep -l pageContext * | pipeargs jedit %
 
 <%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
- pageContext="<%=pageContext%>"
+ pageContext="<%=pageContext%>" 

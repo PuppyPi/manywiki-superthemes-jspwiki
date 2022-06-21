@@ -17,14 +17,15 @@
     under the License.
 --%>
 
-<%@ page errorPage="/Error.jsp" %>
-<%@ page import="java.io.*" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.util.jar.*" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.ui.*" %>
-<%@ page import="org.apache.wiki.preferences.*" %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%-- <%@ tag errorPage="/Error.jsp" %> --%>
+<%@ tag import="java.io.*" %>
+<%@ tag import="java.util.*" %>
+<%@ tag import="java.util.jar.*" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="org.apache.wiki.ui.*" %>
+<%@ tag import="org.apache.wiki.preferences.*" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
