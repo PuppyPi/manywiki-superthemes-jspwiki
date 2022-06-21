@@ -17,60 +17,11 @@
     under the License.
 --%>
 
-<%@ page import="org.apache.logging.log4j.Logger" %>
-<%@ page import="org.apache.logging.log4j.LogManager" %>
-<%@ page import="org.apache.commons.httpclient.*" %>
-<%@ page import="org.apache.commons.httpclient.methods.*" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.api.spi.Wiki" %>
-<%@ page import="org.apache.wiki.auth.AuthorizationManager" %>
-<%@ page import="org.apache.wiki.preferences.Preferences" %>
-<%@ page import="org.apache.wiki.util.*" %>
-<%@ page import="org.apache.wiki.ui.EditorManager" %>
-<%@ page import="org.apache.commons.lang3.time.StopWatch" %>
-<%@ page errorPage="/Error.jsp" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setBundle basename="org.apache.wiki.i18n.core.CoreResources"/>
 
-<%!
-    Logger log = LogManager.getLogger("JSPWiki");
-%>
-<%
-    Engine wiki = Wiki.engine().find( getServletConfig() );
-    // Create wiki context and check for authorization
-    Context wikiContext = Wiki.context().create( wiki, request, ContextEnum.PAGE_VIEW.getRequestContext() );
-    if(!wiki.getManager( AuthorizationManager.class ).hasAccess( wikiContext, response )) return;
-    String pagereq = wikiContext.getName();
-    String reqPage = TextUtil.replaceEntities( request.getParameter( "page" ) );
-    String content = TextUtil.replaceEntities( request.getParameter( "text" ) );
-
-    if( content != null )
-    {
-        String ticket = TextUtil.replaceEntities( request.getParameter( "Asirra_Ticket" ) );
-        HttpClient client = new HttpClient();
-        HttpMethod method = new GetMethod("http://challenge.asirra.com/cgi/Asirra?action=ValidateTicket&ticket="+ticket);
-
-        int status = client.executeMethod(method);
-        String body = method.getResponseBodyAsString();
-
-        if( status == HttpStatus.SC_OK )
-        {
-            if( body.indexOf( "Pass" ) != -1 )
-            {
-                session.setAttribute( "captcha", "ok" );
-                response.sendRedirect( wikiContext.getURL( ContextEnum.PAGE_EDIT.getRequestContext(), reqPage ) );
-                return;
-            }
-        }
-
-        response.sendRedirect("Message.jsp?message=NOK");
-    }
-
-    // Set the content type and include the response content
-    response.setContentType( "text/html; charset=" + wiki.getContentEncoding() );
-%>
 <!doctype html>
 <html lang="<c:out value='${prefs.Language}' default='en'/>" name="top">
 
@@ -110,7 +61,7 @@
 
    <form action="<wiki:Link jsp='Captcha.jsp' format='url'/>" method="post" id="mainForm" style="display: none;">
       <input type="hidden" value="foo" name="text" />
-      <input type="hidden" value='<%=reqPage%>' name='page'/>
+      <input type="hidden" value='${reqPage}>' name='page'/>
       <script type="text/javascript" src="http://challenge.asirra.com/js/AsirraClientSide.js"></script>
       <script type="text/javascript">
          asirraState.SetEnlargedPosition( "right" );
