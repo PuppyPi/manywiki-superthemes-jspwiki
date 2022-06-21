@@ -1,0 +1,30 @@
+• grep ':Include ' *
+
+• fnreplace .jsp .tag *
+
+• Find-and-Replace Regex:
+	<%@ *page +
+	<%@ tag 
+
+
+
+
+
+
+
+
+
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+
+• Find-and-Replace Regex:
+	<wiki:Include page="([^.]+)\.jsp" */>
+	<templateTags:$1/>
+
+
+
+
+
+
+
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+ pageContext="<%=pageContext%>"

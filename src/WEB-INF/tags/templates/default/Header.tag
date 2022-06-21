@@ -21,9 +21,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+<fmt:setBundle basename="templates.default"/>
 <c:set var="frontpage"><wiki:Variable var="jspwiki.frontPage" /></c:set>
 
 <div class="header">
@@ -46,8 +48,8 @@
         </wiki:PageExists>
     </div>
 
-    <wiki:Include page="UserBox.jsp" />
-    <wiki:Include page="SearchBox.jsp" />
+    <templateTags:UserBox pageContext="<%=pageContext%>" />
+    <templateTags:SearchBox/>
 
     <div class="pagename" title="<wiki:PageName />">
       <wiki:CheckRequestContext context='viewGroup|createGroup|editGroup'><span class="icon-group"></span></wiki:CheckRequestContext>
@@ -66,6 +68,6 @@
     </div>
 
   </div>
-  <wiki:Include page="Nav.jsp" />
+  <templateTags:Nav pageContext="<%=pageContext%>" />
 
 </div>

@@ -17,18 +17,20 @@
     under the License.
 --%>
 
-<%@ page import="java.util.StringTokenizer" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.attachment.*" %>
-<%@ page import="org.apache.wiki.pages.PageManager" %>
+<%@ tag import="java.util.StringTokenizer" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="org.apache.wiki.attachment.*" %>
+<%@ tag import="org.apache.wiki.pages.PageManager" %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+<fmt:setBundle basename="templates.default"/>
 <%
   Context c = Context.findContext( pageContext );
 
@@ -382,7 +384,7 @@
   <wiki:PageExists>
   <wiki:PageType type="page">
   <wiki:Tab id="attach" title="<%= attTitle %>" accesskey="a">
-    <wiki:Include page="AttachmentTab.jsp"/>
+    <templateTags:AttachmentTab/>
   </wiki:Tab>
   </wiki:PageType>
 

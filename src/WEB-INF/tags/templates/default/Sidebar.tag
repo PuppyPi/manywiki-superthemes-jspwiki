@@ -20,10 +20,11 @@
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%@ page import="org.apache.wiki.api.core.*" %>
+<fmt:setBundle basename="templates.default"/>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 
 <div class="sidebar">
 

@@ -18,15 +18,17 @@
 --%>
 
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.ui.*" %>
-<%@ page import="org.apache.wiki.util.*" %>
-<%@ page import="org.apache.wiki.preferences.Preferences" %>
-<%@ page import="java.util.*" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="org.apache.wiki.ui.*" %>
+<%@ tag import="org.apache.wiki.util.*" %>
+<%@ tag import="org.apache.wiki.preferences.Preferences" %>
+<%@ tag import="java.util.*" %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+<fmt:setBundle basename="templates.default"/>
 <%--
    This file provides a common header which includes the important JSPWiki scripts and other files.
    You need to include this in your template, within <head> and </head>.  It is recommended that
@@ -156,4 +158,4 @@ String.I18N.PREFIX = "javascript.";
          src="<wiki:Link format='url' templatefile='skins/' /><c:out value='${prefs.SkinName}/skin.js' />" ></script>
 </c:if>
 
-<wiki:Include page="localheader.jsp"/>
+<templateTags:localheader/>

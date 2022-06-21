@@ -20,7 +20,7 @@
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+<fmt:setBundle basename="templates.default"/>
 <%-- Provides a simple searchbox --%>
 <%-- Powered by wiki/Findpages.js and wiki/Recents.js  --%>
 <form action="<wiki:Link jsp='Search.jsp' format='url'/>"

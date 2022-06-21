@@ -19,10 +19,10 @@
 
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="org.apache.wiki.api.Release" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ tag import="org.apache.wiki.api.Release" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+<fmt:setBundle basename="templates.default"/>
 <div class="footer">
 
   <wiki:InsertPage page="CopyrightNotice"/>
