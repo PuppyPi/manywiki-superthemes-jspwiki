@@ -1,0 +1,9 @@
+• remove Java code from toplevel pages!
+
+• remove Java code from tag files @,@
+	• especially pageContext!
+
+• reorganize so it's clear what is just source code and what is pre source code (to be converted with wro4j!)
+	• especially these which we copied in temporarily for now into templates/default!
+		haddock-wysiwyg.css
+		haddock.css
