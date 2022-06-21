@@ -1,3 +1,7 @@
+• remove Java code from the template JSP files @,@
+
+• figure out which template JSP files are actually used!!  I have a feeling a strikingly small percentage of them are >w>
+
 • remove Java code from tag files @,@
 	• especially pageContext!
 
