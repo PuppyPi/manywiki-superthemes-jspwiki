@@ -17,12 +17,6 @@
     under the License.
 --%>
 
-<%@ page import="java.util.*" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.api.spi.Wiki" %>
-<%@ page import="org.apache.wiki.ui.*" %>
-<%@ page import="org.apache.wiki.ui.admin.*" %>
-<%@ page errorPage="/Error.jsp" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <!doctype html>
@@ -40,12 +34,6 @@
 <div class="information">Not all things can be configured here.  Some things need to be configured
 in your <code>jspwiki.properties</code> file.</div>
 
-<%
-    Engine wiki = Wiki.engine().find( getServletConfig() );
-    Context ctx = Context.findContext(pageContext);
-    AdminBeanManager mgr = wiki.getManager( AdminBeanManager.class );
- %>
-
 <div class="tabs admin">
 
 <h3>Core</h3>
@@ -53,16 +41,14 @@ in your <code>jspwiki.properties</code> file.</div>
    <wiki:TabbedSection defaultTab="${param['tab-core']}">
 
      <wiki:AdminBeanIterator type="core" id="ab">
-      <wiki:Tab id="${ab.id}" title="${ab.title}">
+      <wiki:Tab id="${adminBeanId}" title="${adminBeanTitle}">
 
       <div class="formcontainer">
       <form action="Admin.jsp" method="post" accept-charset="UTF-8">
         <input type="hidden" name="tab-admin" value="core"/>
-        <input type="hidden" name="tab-core" value="${ab.title}" />
-        <input type="hidden" name="bean" value="${ab.id}" />
-        <%
-         out.write( ab.doGet(ctx) );
-         %>
+        <input type="hidden" name="tab-core" value="${adminBeanTitle}" />
+        <input type="hidden" name="bean" value="${adminBeanId}" />
+        ${adminBeanResponse}
        </form>
        </div>
       </wiki:Tab>
@@ -85,15 +71,13 @@ in your <code>jspwiki.properties</code> file.</div>
 
    <wiki:TabbedSection defaultTab="${param['tab-editors']}">
      <wiki:AdminBeanIterator type="editors" id="ab">
-      <wiki:Tab id="${ab.id}" title="${ab.title}">
+      <wiki:Tab id="${adminBeanId}" title="${adminBeanTitle}">
 
       <div class="formcontainer">
       <form action="Admin.jsp" method="post" accept-charset="UTF-8">
          <input type="hidden" name="tab-admin" value="editors"/>
-         <input type="hidden" name="tab-editors" value="${ab.title}" />
-         <%
-         out.write( ab.doGet(ctx) );
-         %>
+         <input type="hidden" name="tab-editors" value="${adminBeanTitle}" />
+        ${adminBeanResponse}
        </form>
        </div>
       </wiki:Tab>
