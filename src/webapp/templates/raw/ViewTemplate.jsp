@@ -24,7 +24,7 @@
 <%-- ie6 needs next line --%>
 <link rel="icon" type="image/x-icon" href="<wiki:Link format='url' jsp='images/favicon.ico'/>" />
 
-<% response.setContentType("text/plain; charset=UTF-8"); %>
+<%-- response.setContentType("text/plain; charset=UTF-8"); --%>
 <pre>
 <wiki:InsertPage mode="plain"/>
 </pre>
