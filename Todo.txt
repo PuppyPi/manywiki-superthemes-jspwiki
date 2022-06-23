@@ -1,4 +1,4 @@
-• remove Java code from the template JSP files @,@
+. remove Java code from the template JSP files @,@
 
 • remove Java code from tag files @,@
 	• especially pageContext!
