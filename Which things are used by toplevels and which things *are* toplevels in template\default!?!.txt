@@ -1,5 +1,5 @@
 ==ARE TOPLEVEL PAGES THEMSELVES!!==
-/fix/eclipse/workspace/ManyWiki — Superthemes — JSPWiki/src/webapp/templates/default/AJAXCategories.jsp
+/templates/default/AJAXCategories.jsp
 
 
 
