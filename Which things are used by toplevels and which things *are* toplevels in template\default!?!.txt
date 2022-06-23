@@ -4,6 +4,11 @@
 
 
 ==Are not toplevel pages themselves==
+/templates/default/CookieErrorTemplate.jsp
+/templates/default/EditTemplate.jsp
+/templates/default/UploadTemplate.jsp
+/templates/default/ViewTemplate.jsp
+/templates/default/admin/AdminTemplate.jsp
 
 
 
