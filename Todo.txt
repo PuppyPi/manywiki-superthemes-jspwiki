@@ -2,8 +2,27 @@
 
 • figure out which template JSP files are actually used!!  I have a feeling a strikingly small percentage of them are >w>
 
+• obliterate wiki:Content and wiki:Editor as the last(??) uses of JSP reverse call stack things!! (whole-page includes.. *shudders*)
+	Replace them with a tagfile that takes a string parameter or something and then choose-when's across all (few) possible values and then invokes that *tag file*, which, we will make all the former-JSP pages it could invoke become tag files! :D
+		+ Note: the knowledge of which one to invoke is kept in the "wikiContext"!
+	
+	org.apache.wiki.tags.ContentTag
+	ManyWiki — Superthemes — JSPWiki/src/webapp/templates/default/EditTemplate.jsp:      <wiki:Content/>
+	ManyWiki — Superthemes — JSPWiki/src/webapp/templates/default/ViewTemplate.jsp:      <wiki:Content/>
+	
+	org.apache.wiki.tags.EditorTag
+		org.apache.wiki.ui.DefaultEditorManager.getEditorPath(..)
+	ManyWiki — Superthemes — JSPWiki/src/webapp/templates/default/PreviewContent.jsp:    <wiki:Editor/>
+	ManyWiki — Superthemes — JSPWiki/src/webapp/templates/default/EditContent.jsp:  <wiki:Editor />
+	ManyWiki — Superthemes — JSPWiki/src/webapp/templates/default/CommentContent.jsp:  <wiki:Editor />
+
+
+
+
 • remove Java code from tag files @,@
 	• especially pageContext!
+
+
 
 • reorganize so it's clear what is just source code and what is pre source code (to be converted with wro4j!)
 	• especially these which we copied in temporarily for now into templates/default!
