@@ -8,8 +8,8 @@
 
 
 ==Used by toplevel pages (exhaustive, complete! :D )==
-CookieErrorTemplate.jsp
-EditTemplate.jsp
-UploadTemplate.jsp
-ViewTemplate.jsp
-admin/AdminTemplate.jsp
+/templates/default/CookieErrorTemplate.jsp
+/templates/default/EditTemplate.jsp
+/templates/default/UploadTemplate.jsp
+/templates/default/ViewTemplate.jsp
+/templates/default/admin/AdminTemplate.jsp
