@@ -11,9 +11,18 @@
 /templates/default/ViewTemplate.jsp
 /templates/default/admin/AdminTemplate.jsp
 
+/templates/default/CommentContent.jsp
+/templates/default/ConflictContent.jsp
+/templates/default/DiffContent.jsp
+/templates/default/DisplayMessage.jsp
+/templates/default/EditContent.jsp
+/templates/default/EditGroupContent.jsp
 
 
-==Used by toplevel pages (exhaustive, complete! :D )==
+
+
+
+==Used directly by toplevel pages (exhaustive, complete! :D )==
 /templates/default/CookieErrorTemplate.jsp
 /templates/default/EditTemplate.jsp
 /templates/default/UploadTemplate.jsp
@@ -22,6 +31,13 @@
 
 
 
+==In ContextEnum and so possibly used by wiki:Content==
+/templates/default/CommentContent.jsp
+/templates/default/ConflictContent.jsp
+/templates/default/DiffContent.jsp
+/templates/default/DisplayMessage.jsp
+/templates/default/EditContent.jsp
+/templates/default/EditGroupContent.jsp
 
 
 
@@ -29,21 +45,12 @@
 
 
 ==TODO==
-/templates/default/CommentContent.jsp
-/templates/default/ConflictContent.jsp
-/templates/default/DiffContent.jsp
-/templates/default/DisplayMessage.jsp
-/templates/default/EditContent.jsp
-/templates/default/EditGroupContent.jsp
-/templates/default/EditTemplate.jsp
 /templates/default/FindContent.jsp
 /templates/default/GroupContent.jsp
 /templates/default/LoginContent.jsp
 /templates/default/NewGroupContent.jsp
 /templates/default/PageContent.jsp
 /templates/default/PreviewContent.jsp
-/templates/default/UploadTemplate.jsp
-/templates/default/ViewTemplate.jsp
 /templates/default/WorkflowContent.jsp
 
 /templates/default/editors/CKeditor.jsp
@@ -51,4 +58,3 @@
 /templates/default/editors/preview.jsp
 /templates/default/editors/TinyMCE.jsp
 /templates/default/editors/wysiwyg.jsp
-/templates/default/admin/AdminTemplate.jsp
