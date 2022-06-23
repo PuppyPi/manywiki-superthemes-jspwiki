@@ -17,29 +17,7 @@
     under the License.
 --%>
 
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
-<fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<div class="page-content prettify">
-
-<h4><fmt:message key="conflict.oops.title"/></h4>
-  <div class="error">
-    <fmt:message key="conflict.oops" />
-  </div>
-  <wiki:Link cssClass="btn btn-primary btn-block" context="edit" >
-    <fmt:message key="conflict.goedit" >
-      <fmt:param><wiki:PageName /></fmt:param>
-    </fmt:message>
-  </wiki:Link>
-<br />
-<div class="columns">
-<h4><fmt:message key="conflict.modified"/></h4>
-  <pre>${conflicttext}</pre>
-<hr />
-<h4><fmt:message key="conflict.yourtext"/></h4>
-  <pre>${usertext}</pre>
-</div>
-
-</div>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+<templateTags:PreferencesContent pageContext="<%=pageContext%>" />

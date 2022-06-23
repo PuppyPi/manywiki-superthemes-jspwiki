@@ -14,9 +14,15 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
-    under the License.
+    under the License.  
 --%>
 
-<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<templateTags:PreferencesContent pageContext="<%=pageContext%>" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%-- Inserts a string message. --%>
+
+   <div class="error">
+     <c:out value="${message}"/>
+   </div>
+
+   <br clear="all" />

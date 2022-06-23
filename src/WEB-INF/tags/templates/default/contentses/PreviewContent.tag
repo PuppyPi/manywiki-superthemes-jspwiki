@@ -17,14 +17,28 @@
     under the License.  
 --%>
 
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ tag import="org.apache.wiki.ui.EditorManager" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<fmt:setLocale value="${prefs.Language}" />
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<%-- Inserts a string message. --%>
+<%-- Inserts page content for preview. --%>
+<div class="page-content preview-content">
 
-   <div class="error">
-     <c:out value="${message}"/>
-   </div>
+  <div class="information">
+    <wiki:Editor/>
+    <p class="help-block"><fmt:message key="preview.info"/></p>
+  </div>
 
-   <br clear="all" />
+  <div class="preview-body">
+    <wiki:Translate><%=EditorManager.getEditedText(pageContext)%></wiki:Translate>
+  </div>
+
+  <div class="information">
+    <fmt:message key="preview.info"/>
+  </div>
+
+</div>

@@ -17,6 +17,7 @@
     under the License.
 --%>
 
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <templateTags:PreferencesContent pageContext="<%=pageContext%>" />

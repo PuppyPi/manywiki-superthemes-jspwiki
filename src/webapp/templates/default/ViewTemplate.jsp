@@ -72,7 +72,7 @@
   <div class="content ${sidebarState}" data-toggle="li#menu"
                                        data-toggle-pref="${sidebarCookie}" >
     <div class="page" role="main">
-      <wiki:Content/>
+      <templateTags:Content selector="${contentSelector}" pageContext="<%=pageContext%>" />
       <templateTags:PageInfo/>
     </div>
     <templateTags:Sidebar pageContext="<%=pageContext%>" />

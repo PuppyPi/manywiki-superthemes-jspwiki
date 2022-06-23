@@ -17,28 +17,36 @@
     under the License.
 --%>
 
-<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.attachment.*" %>
+<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki"  %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  Context c = Context.findContext( pageContext );
-%>
+
 <%-- Main Content Section --%>
 <%-- This has been source ordered to come first in the markup (and on small devices)
      but to be to the right of the nav on larger screens --%>
-<div class="page-content <wiki:Variable var='page-styles' default='' />">
+<div class="page-content">
 
-  <templateTags:PageTab pageContext="<%=pageContext%>" />
-
-  <wiki:PageType type="attachment">
-    <div><%-- insert the actual attachement, image, etc... --%>
-      <wiki:Translate>[<%= Context.findContext( pageContext ).getPage().getName() %>]</wiki:Translate>
+  <wiki:CheckLock mode="locked" id="lock">
+    <div class="alert alert-danger">
+      <fmt:message key="edit.locked">
+        <fmt:param><c:out value="${lock.locker}"/></fmt:param>
+        <fmt:param><c:out value="${lock.timeLeft}"/></fmt:param>
+      </fmt:message>
     </div>
-  </wiki:PageType>
+  </wiki:CheckLock>
+
+  <wiki:CheckVersion mode="notlatest">
+    <div class="alert alert-warning center">
+      <fmt:message key="edit.restoring">
+        <fmt:param><span class="version-badge"><wiki:PageVersion/></span></fmt:param>
+      </fmt:message>
+    </div>
+  </wiki:CheckVersion>
+
+  <wiki:Editor />
 
 </div>

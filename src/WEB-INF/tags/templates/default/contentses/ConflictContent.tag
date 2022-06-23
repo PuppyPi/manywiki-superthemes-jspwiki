@@ -14,30 +14,32 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
-    under the License.  
+    under the License.
 --%>
 
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ page import="org.apache.wiki.ui.EditorManager" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+<div class="page-content prettify">
 
-<%-- Inserts page content for preview. --%>
-<div class="page-content preview-content">
-
-  <div class="information">
-    <wiki:Editor/>
-    <p class="help-block"><fmt:message key="preview.info"/></p>
+<h4><fmt:message key="conflict.oops.title"/></h4>
+  <div class="error">
+    <fmt:message key="conflict.oops" />
   </div>
-
-  <div class="preview-body">
-    <wiki:Translate><%=EditorManager.getEditedText(pageContext)%></wiki:Translate>
-  </div>
-
-  <div class="information">
-    <fmt:message key="preview.info"/>
-  </div>
+  <wiki:Link cssClass="btn btn-primary btn-block" context="edit" >
+    <fmt:message key="conflict.goedit" >
+      <fmt:param><wiki:PageName /></fmt:param>
+    </fmt:message>
+  </wiki:Link>
+<br />
+<div class="columns">
+<h4><fmt:message key="conflict.modified"/></h4>
+  <pre>${conflicttext}</pre>
+<hr />
+<h4><fmt:message key="conflict.yourtext"/></h4>
+  <pre>${usertext}</pre>
+</div>
 
 </div>
