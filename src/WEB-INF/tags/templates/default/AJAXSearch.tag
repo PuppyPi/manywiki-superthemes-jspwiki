@@ -42,7 +42,7 @@
 <%!
   public void jspInit()
   {
-    wiki = Wiki.engine().find( getServletConfig() );
+    wiki = Wiki.engine().find( pageContext.getServletConfig() );
   }
   Logger log = LogManager.getLogger("JSPWikiSearch");
   Engine wiki;
