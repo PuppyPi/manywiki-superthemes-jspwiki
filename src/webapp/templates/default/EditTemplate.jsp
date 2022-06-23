@@ -51,7 +51,7 @@
   <templateTags:Header pageContext="<%=pageContext%>" />
   <div class="content" data-toggle="li#menu,.sidebar>.close" >
     <div class="page">
-      <templateTags:Content selector="${contentSelector}" pageContext="<%=pageContext%>" />
+      <templateTags:Content selector="${contentSelector}" editorSelector="${editorSelector}" pageContext="<%=pageContext%>" />
       <templateTags:PageInfo/>
     </div>
     <templateTags:Sidebar pageContext="<%=pageContext%>" />

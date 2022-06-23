@@ -17,11 +17,14 @@
     under the License.
 --%>
 
-<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki"  %>
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="editorSelector" type="java.lang.String" %>
 <%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
@@ -47,6 +50,6 @@
     </div>
   </wiki:CheckVersion>
 
-  <wiki:Editor />
+  <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
 
 </div>

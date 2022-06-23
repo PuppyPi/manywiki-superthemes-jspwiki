@@ -17,11 +17,14 @@
     under the License.
 --%>
 
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="editorSelector" type="java.lang.String" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<fmt:setLocale value="${prefs.Language}" />
+<fmt:setLocale value="${prefs.Language}" /><%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%--
    First insert the main page or the corresponding blog-entry page
@@ -38,5 +41,5 @@
     <wiki:InsertPage />
   </div>
   <div class="resizer" data-resize=".comment-page" title="<fmt:message key='editor.plain.comment.resize'/>" ></div>
-  <wiki:Editor />
+  <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
 </div>

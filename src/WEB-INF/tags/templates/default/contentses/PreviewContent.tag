@@ -18,10 +18,12 @@
 --%>
 
 <%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
+<%@ attribute name="editorSelector" type="java.lang.String" %>
 <%@ tag import="org.apache.wiki.ui.EditorManager" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
@@ -29,7 +31,7 @@
 <div class="page-content preview-content">
 
   <div class="information">
-    <wiki:Editor/>
+    <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
     <p class="help-block"><fmt:message key="preview.info"/></p>
   </div>
 

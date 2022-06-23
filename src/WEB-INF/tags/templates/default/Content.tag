@@ -21,63 +21,64 @@
 The "ContentSelector"s here must match up with org.apache.wiki.api.core.ContextEnum !!
 --%>
 
-<%@ attribute name="selector" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="selector" type="java.lang.String" %>
+<%@ attribute name="editorSelector" type="java.lang.String" %>
 <%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="templateContentsesTags" tagdir="/WEB-INF/tags/templates/default/contentses" %>
+<%@ taglib prefix="templateContentsTags" tagdir="/WEB-INF/tags/templates/default/contentses" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 
 <c:choose>
 	<c:when test="${selector == 'ContentSelector_CommentContent'}">
-		<templateContentsesTags:CommentContent/>
+		<templateContentsTags:CommentContent editorSelector="${editorSelector}" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_ConflictContent'}">
-		<templateContentsesTags:ConflictContent/>
+		<templateContentsTags:ConflictContent/>
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_DiffContent'}">
-		<templateContentsesTags:DiffContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:DiffContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_DisplayMessage'}">
-		<templateContentsesTags:DisplayMessage/>
+		<templateContentsTags:DisplayMessage/>
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_EditContent'}">
-		<templateContentsesTags:EditContent/>
+		<templateContentsTags:EditContent editorSelector="${editorSelector}" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_EditGroupContent'}">
-		<templateContentsesTags:EditGroupContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:EditGroupContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_FindContent'}">
-		<templateContentsesTags:FindContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:FindContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_GroupContent'}">
-		<templateContentsesTags:GroupContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:GroupContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_LoginContent'}">
-		<templateContentsesTags:LoginContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:LoginContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_NewGroupContent'}">
-		<templateContentsesTags:NewGroupContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:NewGroupContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_PageContent'}">
-		<templateContentsesTags:PageContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:PageContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_PreviewContent'}">
-		<templateContentsesTags:PreviewContent pageContext="<%=pageContext%>" />
+		<templateContentsTags:PreviewContent editorSelector="${editorSelector}" pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_WorkflowContent'}">
-		<templateContentsesTags:WorkflowContent/>
+		<templateContentsTags:WorkflowContent/>
 	</c:when>
 	
 	
@@ -90,6 +91,6 @@ The "ContentSelector"s here must match up with org.apache.wiki.api.core.ContextE
 	</c:when>
 	
 	<c:otherwise>
-		<!-- ERROR: Unrecognized selector! -->
+		<!-- ERROR: Unrecognized content selector! -->
 	</c:otherwise>
 </c:choose>
