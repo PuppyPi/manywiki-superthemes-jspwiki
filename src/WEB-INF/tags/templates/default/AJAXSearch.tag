@@ -141,27 +141,25 @@
       </tr>
 
 	  <c:if test="${param.details == 'on'}">
-<%
-        String[] contexts = searchref.getContexts();
-        if( (contexts != null) && (contexts.length > 0) )
-        {
-%>
-      <tr class="odd" >
-        <td class="fragment" colspan="2">
-<%
-          for (int i = 0; i < contexts.length; i++)
-          {
-%>
-            <%= (i > 0 ) ? "<span class='fragment_ellipsis'> ... </span>" : ""  %>
-            <%= contexts[i]  %>
-<%
-          }
-%>
-         </td>
-       </tr>
-<%
-        }
-%>
+		<%
+				List<String> contexts = asList(searchref.getContexts());
+		%>
+		
+		<c:if test="${(contexts != null) && (contexts.size > 0)}">
+			  <tr class="odd" >
+				<td class="fragment" colspan="2">
+			
+			<c:set var="first" value="${true}"/>
+			<c:forEach var="c" items="contexts">
+				<c:if test="${first}">
+					<span class='fragment_ellipsis'> ... </span>
+				</c:if>
+				<c:set var="first" value="${false}"/>
+					${c}
+			</c:forEach>
+				 </td>
+			   </tr>
+		</c:if>
 	  </c:if><%-- details --%>
       </wiki:SearchResultIterator>
 
