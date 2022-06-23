@@ -27,23 +27,23 @@ The "ContentSelector"s here must match up with org.apache.wiki.api.core.ContextE
 <%@ taglib prefix="templateEditorsTags" tagdir="/WEB-INF/tags/templates/default/editors" %>
 
 <c:choose>
-	<c:when test="selector == 'EditorSelector_CKeditor'}">
+	<c:when test="${selector == 'EditorSelector_CKeditor'}">
 		<templateEditorsTags:CKeditor pageContext="<%=pageContext%>" />
 	</c:when>
 	
-	<c:when test="selector == 'EditorSelector_plain'}">
+	<c:when test="${selector == 'EditorSelector_plain'}">
 		<templateEditorsTags:plain pageContext="<%=pageContext%>" />
 	</c:when>
 	
-	<c:when test="selector == 'EditorSelector_preview'}">
+	<c:when test="${selector == 'EditorSelector_preview'}">
 		<templateEditorsTags:preview pageContext="<%=pageContext%>" />
 	</c:when>
 	
-	<c:when test="selector == 'EditorSelector_TinyMCE'}">
+	<c:when test="${selector == 'EditorSelector_TinyMCE'}">
 		<templateEditorsTags:TinyMCE pageContext="<%=pageContext%>" />
 	</c:when>
 	
-	<c:when test="selector == 'EditorSelector_wysiwyg'}">
+	<c:when test="${selector == 'EditorSelector_wysiwyg'}">
 		<templateEditorsTags:wysiwyg pageContext="<%=pageContext%>" />
 	</c:when>
 	

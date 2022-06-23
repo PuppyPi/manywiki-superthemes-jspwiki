@@ -30,7 +30,7 @@ The "ContentSelector"s here must match up with org.apache.wiki.api.core.ContextE
 
 <c:choose>
 	<c:when test="${selector == 'ContentSelector_CommentContent'}">
-		<templateContentsTags:CommentContent editorSelector="${editorSelector}" />
+		<templateContentsTags:CommentContent editorSelector="${editorSelector}" pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_ConflictContent'}">
@@ -46,7 +46,7 @@ The "ContentSelector"s here must match up with org.apache.wiki.api.core.ContextE
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_EditContent'}">
-		<templateContentsTags:EditContent editorSelector="${editorSelector}" />
+		<templateContentsTags:EditContent editorSelector="${editorSelector}" pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_EditGroupContent'}">
