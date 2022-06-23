@@ -1,5 +1,6 @@
 ==ARE TOPLEVEL PAGES THEMSELVES!!==
 /templates/default/AJAXCategories.jsp
+/templates/default/AJAXPreview.jsp
 
 
 
@@ -28,7 +29,6 @@
 
 
 ==TODO==
-/templates/default/AJAXPreview.jsp
 /templates/default/CommentContent.jsp
 /templates/default/ConflictContent.jsp
 /templates/default/DiffContent.jsp
@@ -38,8 +38,6 @@
 /templates/default/EditTemplate.jsp
 /templates/default/FindContent.jsp
 /templates/default/GroupContent.jsp
-/templates/default/haddock-wysiwyg.css
-/templates/default/haddock.css
 /templates/default/LoginContent.jsp
 /templates/default/NewGroupContent.jsp
 /templates/default/PageContent.jsp
