@@ -87,7 +87,7 @@ The "ContentSelector"s here must match up with org.apache.wiki.api.core.ContextE
 	</c:when>
 	
 	<c:when test="${selector == 'ContentSelector_PreferencesContent'}">
-		<templateTags:PreferencesContent pageContext="<%=pageContext%> "/>
+		<templateTags:PreferencesContent pageContext="<%=pageContext%>" />
 	</c:when>
 	
 	<c:otherwise>
