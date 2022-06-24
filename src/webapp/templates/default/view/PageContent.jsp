@@ -17,29 +17,34 @@
     under the License.
 --%>
 
+<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="org.apache.wiki.attachment.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<div class="page-content prettify">
+<%
+  Context c = Context.findContext( pageContext );
+%>
 
-<h4><fmt:message key="conflict.oops.title"/></h4>
-  <div class="error">
-    <fmt:message key="conflict.oops" />
-  </div>
-  <wiki:Link cssClass="btn btn-primary btn-block" context="edit" >
-    <fmt:message key="conflict.goedit" >
-      <fmt:param><wiki:PageName /></fmt:param>
-    </fmt:message>
-  </wiki:Link>
-<br />
-<div class="columns">
-<h4><fmt:message key="conflict.modified"/></h4>
-  <pre>${conflicttext}</pre>
-<hr />
-<h4><fmt:message key="conflict.yourtext"/></h4>
-  <pre>${usertext}</pre>
+<templateTags:ViewOpen/>
+
+<%-- Main Content Section --%>
+<%-- This has been source ordered to come first in the markup (and on small devices)
+     but to be to the right of the nav on larger screens --%>
+<div class="page-content <wiki:Variable var='page-styles' default='' />">
+
+  <templateTags:PageTab pageContext="<%=pageContext%>" />
+
+  <wiki:PageType type="attachment">
+    <div><%-- insert the actual attachement, image, etc... --%>
+      <wiki:Translate>[<%= Context.findContext( pageContext ).getPage().getName() %>]</wiki:Translate>
+    </div>
+  </wiki:PageType>
+
 </div>
 
-</div>
+<templateTags:ViewClose/>

@@ -28,6 +28,8 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
+<templateTags:ViewOpen/>
+
 <div class="page-content">
 
 <wiki:UserCheck status="notAuthenticated">
@@ -64,3 +66,5 @@
 </wiki:UserCheck>
 
 </div>
+
+<templateTags:ViewClose/>

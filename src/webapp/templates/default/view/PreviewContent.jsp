@@ -14,10 +14,37 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
-    under the License.
+    under the License.  
 --%>
 
 <%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="editorSelector" type="java.lang.String" %>
+<%@ tag import="org.apache.wiki.ui.EditorManager" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<templateTags:PreferencesContent pageContext="<%=pageContext%>" />
+<fmt:setLocale value="${prefs.Language}" />
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+
+<templateTags:ViewOpen/>
+
+<%-- Inserts page content for preview. --%>
+<div class="page-content preview-content">
+
+  <div class="information">
+    <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
+    <p class="help-block"><fmt:message key="preview.info"/></p>
+  </div>
+
+  <div class="preview-body">
+    <wiki:Translate><%=EditorManager.getEditedText(pageContext)%></wiki:Translate>
+  </div>
+
+  <div class="information">
+    <fmt:message key="preview.info"/>
+  </div>
+
+</div>
+
+<templateTags:ViewClose/>

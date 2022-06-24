@@ -41,6 +41,9 @@
     }
 
 %>
+
+<templateTags:ViewOpen/>
+
 <c:set var="allowsCookieAuthentication" value="<%= mgr.allowsCookieAuthentication() %>" />
 <div class="page-content">
 
@@ -273,3 +276,5 @@
 </div>
 
 </div>
+
+<templateTags:ViewClose/>

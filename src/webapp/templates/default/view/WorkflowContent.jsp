@@ -22,9 +22,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+
+<templateTags:ViewOpen/>
+
 <div class="page-content table-filter-sort">
 
 <wiki:UserCheck status="authenticated">
@@ -181,3 +185,5 @@
   <div class="info"><fmt:message key="workflow.beforelogin"/></div>
 </wiki:UserCheck>
 </div>
+
+<templateTags:ViewClose/>

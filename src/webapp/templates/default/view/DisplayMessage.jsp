@@ -18,11 +18,16 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 
 <%-- Inserts a string message. --%>
+
+<templateTags:ViewOpen/>
 
    <div class="error">
      <c:out value="${message}"/>
    </div>
 
    <br clear="all" />
+
+<templateTags:ViewClose/>

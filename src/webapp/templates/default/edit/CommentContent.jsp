@@ -18,28 +18,34 @@
 --%>
 
 <%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="editorSelector" type="java.lang.String" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.attachment.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  Context c = Context.findContext( pageContext );
-%>
-<%-- Main Content Section --%>
-<%-- This has been source ordered to come first in the markup (and on small devices)
-     but to be to the right of the nav on larger screens --%>
-<div class="page-content <wiki:Variable var='page-styles' default='' />">
 
-  <templateTags:PageTab pageContext="<%=pageContext%>" />
+<templateTags:EditOpen/>
 
-  <wiki:PageType type="attachment">
-    <div><%-- insert the actual attachement, image, etc... --%>
-      <wiki:Translate>[<%= Context.findContext( pageContext ).getPage().getName() %>]</wiki:Translate>
-    </div>
-  </wiki:PageType>
-
+<%--
+   First insert the main page or the corresponding blog-entry page
+   Then a horizontal resizer
+   And finally the editor for writing the comment
+--%>
+<div class="page-content">
+  <div class="row comment-page">
+    <c:set var="mainblogpage" value="${fn:substringBefore(param.page,'_comments_')}" />
+    <c:if test="${not empty mainblogpage}">
+      <c:set var="blogentrypage" value="${fn:replace(param.page,'_comments_','_blogentry_')}" />
+      <wiki:InsertPage page="${blogentrypage}" />
+    </c:if>
+    <wiki:InsertPage />
+  </div>
+  <div class="resizer" data-resize=".comment-page" title="<fmt:message key='editor.plain.comment.resize'/>" ></div>
+  <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
 </div>
+
+<templateTags:EditClose/>

@@ -29,6 +29,10 @@
 <%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+
+
+<templateTags:ViewOpen/>
+
 <div class="page-content">
 
 <form action="<wiki:Link format='url' jsp='Search.jsp'/>"
@@ -83,3 +87,5 @@
 <div><templateTags:AJAXSearch pageContext="<%=pageContext%>" /></div>
 
 </div>
+
+<templateTags:ViewClose/>

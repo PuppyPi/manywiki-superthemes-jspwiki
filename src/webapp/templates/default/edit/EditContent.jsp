@@ -19,27 +19,41 @@
 
 <%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ attribute name="editorSelector" type="java.lang.String" %>
-<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ tag import="org.apache.wiki.api.core.*" %>
+<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<fmt:setLocale value="${prefs.Language}" /><%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+<fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%--
-   First insert the main page or the corresponding blog-entry page
-   Then a horizontal resizer
-   And finally the editor for writing the comment
---%>
+
+<templateTags:EditOpen/>
+
+<%-- Main Content Section --%>
+<%-- This has been source ordered to come first in the markup (and on small devices)
+     but to be to the right of the nav on larger screens --%>
 <div class="page-content">
-  <div class="row comment-page">
-    <c:set var="mainblogpage" value="${fn:substringBefore(param.page,'_comments_')}" />
-    <c:if test="${not empty mainblogpage}">
-      <c:set var="blogentrypage" value="${fn:replace(param.page,'_comments_','_blogentry_')}" />
-      <wiki:InsertPage page="${blogentrypage}" />
-    </c:if>
-    <wiki:InsertPage />
-  </div>
-  <div class="resizer" data-resize=".comment-page" title="<fmt:message key='editor.plain.comment.resize'/>" ></div>
+
+  <wiki:CheckLock mode="locked" id="lock">
+    <div class="alert alert-danger">
+      <fmt:message key="edit.locked">
+        <fmt:param><c:out value="${lock.locker}"/></fmt:param>
+        <fmt:param><c:out value="${lock.timeLeft}"/></fmt:param>
+      </fmt:message>
+    </div>
+  </wiki:CheckLock>
+
+  <wiki:CheckVersion mode="notlatest">
+    <div class="alert alert-warning center">
+      <fmt:message key="edit.restoring">
+        <fmt:param><span class="version-badge"><wiki:PageVersion/></span></fmt:param>
+      </fmt:message>
+    </div>
+  </wiki:CheckVersion>
+
   <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
+
 </div>
+
+<templateTags:EditClose/>

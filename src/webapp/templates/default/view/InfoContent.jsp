@@ -80,6 +80,9 @@
   /* startitem drives the pagination logic */
   /* startitem=-1:show all; startitem=0:show block 1-20; startitem=20:block 21-40 ... */
 %>
+
+<templateTags:ViewOpen/>
+
 <div class="page-content">
 
 <wiki:PageExists>
@@ -394,3 +397,5 @@
 </wiki:NoSuchPage>
 
 </div>
+
+<templateTags:ViewClose/>
