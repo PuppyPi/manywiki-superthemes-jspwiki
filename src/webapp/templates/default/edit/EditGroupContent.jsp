@@ -17,20 +17,19 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="java.security.Principal" %>
-<%@ tag import="java.util.Arrays" %>
-<%@ tag import="org.apache.logging.log4j.Logger" %>
-<%@ tag import="org.apache.logging.log4j.LogManager" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.auth.authorize.Group" %>
-<%@ tag import="org.apache.wiki.util.comparators.PrincipalComparator" %>
+<%@ page import="java.security.Principal" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="org.apache.logging.log4j.Logger" %>
+<%@ page import="org.apache.logging.log4j.LogManager" %>
+<%@ page import="org.apache.wiki.api.core.*" %>
+<%@ page import="org.apache.wiki.auth.authorize.Group" %>
+<%@ page import="org.apache.wiki.util.comparators.PrincipalComparator" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%

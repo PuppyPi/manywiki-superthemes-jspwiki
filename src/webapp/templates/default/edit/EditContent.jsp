@@ -17,10 +17,8 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ attribute name="editorSelector" type="java.lang.String" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ page import="org.apache.wiki.api.core.*" %>
+<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>

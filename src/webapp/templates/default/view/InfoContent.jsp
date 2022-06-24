@@ -17,23 +17,22 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.auth.*" %>
-<%@ tag import="org.apache.wiki.auth.permissions.*" %>
-<%@ tag import="org.apache.wiki.attachment.*" %>
-<%@ tag import="org.apache.wiki.i18n.InternationalizationManager" %>
-<%@ tag import="org.apache.wiki.pages.PageManager" %>
-<%@ tag import="org.apache.wiki.preferences.Preferences" %>
-<%@ tag import="org.apache.wiki.ui.progress.ProgressManager" %>
-<%@ tag import="org.apache.wiki.util.TextUtil" %>
-<%@ tag import="java.security.Permission" %>
+<%@ page import="org.apache.wiki.api.core.*" %>
+<%@ page import="org.apache.wiki.auth.*" %>
+<%@ page import="org.apache.wiki.auth.permissions.*" %>
+<%@ page import="org.apache.wiki.attachment.*" %>
+<%@ page import="org.apache.wiki.i18n.InternationalizationManager" %>
+<%@ page import="org.apache.wiki.pages.PageManager" %>
+<%@ page import="org.apache.wiki.preferences.Preferences" %>
+<%@ page import="org.apache.wiki.ui.progress.ProgressManager" %>
+<%@ page import="org.apache.wiki.util.TextUtil" %>
+<%@ page import="java.security.Permission" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 <%
