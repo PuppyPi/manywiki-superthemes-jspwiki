@@ -17,13 +17,11 @@
     under the License.
 --%>
 
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.ui.*" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
@@ -32,7 +30,7 @@
 <div class="page-content">
 
 <wiki:UserCheck status="notAuthenticated">
-  <templateTags:PreferencesTab pageContext="<%=pageContext%>" />
+  <templateTags:PreferencesTab pageContext="${pageContext}" />
 </wiki:UserCheck>
 
 <wiki:UserCheck status="authenticated">
@@ -41,14 +39,13 @@
   <h3 id="section-prefs">
     <fmt:message key="prefs.tab.prefs" />
   </h3>
-  <templateTags:PreferencesTab pageContext="<%=pageContext%>" />
+  <templateTags:PreferencesTab pageContext="${pageContext}" />
 
   <wiki:Permission permission="editProfile">
   <wiki:UserProfile property="exists">
     <c:set var="profileTab" value="${param.tab == 'profile' ? 'data-activePane' : ''}"/>
     <h3 ${profileTab} id="section-profile"><fmt:message key="prefs.tab.profile"/></h3>
-    <templateTags:ProfileTab pageContext="<%=pageContext%>" />
-    <%-- <%=LocaleSupport.getLocalizedMessage(pageContext, "prefs.tab.profile")%> --%>
+    <templateTags:ProfileTab pageContext="${pageContext}" />
   </wiki:UserProfile>
   </wiki:Permission>
 
@@ -58,7 +55,7 @@
        <c:set var="groupTab">data-activePane</c:set>
     </wiki:CheckRequestContext>
     <h3 ${groupTab} id="section-groups"><fmt:message key="group.tab" /></h3>
-    <templateTags:GroupTab pageContext="<%=pageContext%>" />
+    <templateTags:GroupTab pageContext="${pageContext}" />
   </wiki:Permission>
 
 </div>

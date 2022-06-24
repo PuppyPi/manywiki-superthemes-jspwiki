@@ -17,11 +17,10 @@
     under the License.  
 --%>
 
-<%@ page import="org.apache.wiki.ui.EditorManager" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
@@ -31,12 +30,12 @@
 <div class="page-content preview-content">
 
   <div class="information">
-    <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
+    <templateTags:Editor selector="${editorSelector}" pageContext="${pageContext}" />
     <p class="help-block"><fmt:message key="preview.info"/></p>
   </div>
 
   <div class="preview-body">
-    <wiki:Translate><%=EditorManager.getEditedText(pageContext)%></wiki:Translate>
+    <wiki:Translate>${wikiMarkup}</wiki:Translate>
   </div>
 
   <div class="information">

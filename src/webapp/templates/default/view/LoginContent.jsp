@@ -17,33 +17,16 @@
     under the License.
 --%>
 
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.auth.*" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-    Context ctx = Context.findContext( pageContext );
-    AuthenticationManager mgr = ctx.getEngine().getManager( AuthenticationManager.class );
-    String loginURL = "";
-
-    if( mgr.isContainerAuthenticated() ) {
-        loginURL = "j_security_check";
-    } else {
-        String redir = (String)ctx.getVariable("redirect");
-        if( redir == null ) redir = ctx.getEngine().getFrontPage();
-        loginURL = ctx.getURL( ContextEnum.WIKI_LOGIN.getRequestContext(), redir );
-    }
-
-%>
 
 <templateTags:ViewOpen/>
 
-<c:set var="allowsCookieAuthentication" value="<%= mgr.allowsCookieAuthentication() %>" />
 <div class="page-content">
 
 <%-- Login functionality --%>
@@ -54,7 +37,7 @@
 
 <h3 id="section-login"><fmt:message key="login.tab"/></h3>
 
-<form action="<%= loginURL %>"
+<form action="${loginURL}"
           id="login"
        class="login-form"
       method="post" accept-charset="<wiki:ContentEncoding />" >
@@ -187,7 +170,7 @@
 <c:set var="registerTab" value="${param.tab == 'register' ? 'data-activePane': ''}"/>
 <h3 ${registerTab} id="section-register"><fmt:message key="login.register.tab" /></h3>
 
-<%-- <templateTags:ProfileTab pageContext="<%=pageContext%>" /> --%>
+<%-- <templateTags:ProfileTab pageContext="${pageContext}" /> --%>
 <form action="<wiki:Link jsp='Login.jsp' format='url'><wiki:Param name='tab' value='register'/></wiki:Link>"
           id="editProfile"
        class="login-form"

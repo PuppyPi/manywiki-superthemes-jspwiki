@@ -16,16 +16,12 @@
     specific language governing permissions and limitations
     under the License.
 --%>
+
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.ui.*" %>
-<%@ page import="java.util.*" %>
-<%@ page import="org.apache.commons.lang3.*" %>
-<%@ page import="java.net.URLEncoder" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
@@ -83,7 +79,7 @@
 
 </form>
 
-<div><templateTags:AJAXSearch pageContext="<%=pageContext%>" /></div>
+<div><templateTags:AJAXSearch pageContext="${pageContext}" /></div>
 
 </div>
 

@@ -17,68 +17,14 @@
     under the License.
 --%>
 
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="org.apache.wiki.auth.*" %>
-<%@ page import="org.apache.wiki.auth.permissions.*" %>
-<%@ page import="org.apache.wiki.attachment.*" %>
-<%@ page import="org.apache.wiki.i18n.InternationalizationManager" %>
-<%@ page import="org.apache.wiki.pages.PageManager" %>
-<%@ page import="org.apache.wiki.preferences.Preferences" %>
-<%@ page import="org.apache.wiki.ui.progress.ProgressManager" %>
-<%@ page import="org.apache.wiki.util.TextUtil" %>
-<%@ page import="java.security.Permission" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  Context c = Context.findContext(pageContext);
-  Page wikiPage = c.getPage();
-  int attCount = c.getEngine().getManager( AttachmentManager.class ).listAttachments( c.getPage() ).size();
-  String attTitle = LocaleSupport.getLocalizedMessage(pageContext, "attach.tab");
-  if( attCount != 0 ) attTitle += " (" + attCount + ")";
-
-  String creationAuthor ="";
-
-  //FIXME -- seems not to work correctly for attachments !!
-  Page firstPage = c.getEngine().getManager( PageManager.class ).getPage( wikiPage.getName(), 1 );
-  if( firstPage != null )
-  {
-    creationAuthor = firstPage.getAuthor();
-
-    if( creationAuthor != null && creationAuthor.length() > 0 )
-    {
-      creationAuthor = TextUtil.replaceEntities(creationAuthor);
-    }
-    else
-    {
-      creationAuthor = Preferences.getBundle( c, InternationalizationManager.CORE_BUNDLE ).getString( "common.unknownauthor" );
-    }
-  }
-
-  int itemcount = 0;  //number of page versions
-  try
-  {
-    itemcount = wikiPage.getVersion(); /* highest version */
-  }
-  catch( Exception  e )  { /* dont care */ }
-
-  int pagesize = 20;
-  int startitem = itemcount-1; /* itemcount==1-20 -> startitem=0-19 ... */
-
-  String parm_start = (String)request.getParameter( "start" );
-  if( parm_start != null ) startitem = Integer.parseInt( parm_start ) ;
-
-  /* round to start of block: 0-19 becomes 0; 20-39 becomes 20 ... */
-  if( startitem > -1 ) startitem = ( startitem / pagesize ) * pagesize;
-
-  /* startitem drives the pagination logic */
-  /* startitem=-1:show all; startitem=0:show block 1-20; startitem=20:block 21-40 ... */
-%>
 
 <templateTags:ViewOpen/>
 
@@ -94,7 +40,7 @@
     <fmt:param>
       <a href="<wiki:DiffLink format='url' version='latest' newVersion='previous' />"
         title="<fmt:message key='info.pagediff.title' />" >
-        <fmt:formatDate value="<%= wikiPage.getLastModified() %>" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
+        <fmt:formatDate value="${pageLastModified}" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
       </a>
     </fmt:param>
     <fmt:param><wiki:Author /></fmt:param>
@@ -107,17 +53,17 @@
     <fmt:message key='info.createdon'>
       <fmt:param>
         <wiki:Link version="1">
-          <fmt:formatDate value="<%= firstPage.getLastModified() %>" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
+          <fmt:formatDate value="${firstPageLastModified}" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
         </wiki:Link>
       </fmt:param>
-      <fmt:param><%= creationAuthor %></fmt:param>
+      <fmt:param>${creationAuthor}</fmt:param>
     </fmt:message>
   </p>
   </wiki:CheckVersion>
 
   <wiki:Permission permission="rename">
 
-    <wiki:Messages div="alert alert-danger" topic="rename" prefix='<%=LocaleSupport.getLocalizedMessage(pageContext,"prefs.errorprefix.rename")%>'/>
+    <wiki:Messages div="alert alert-danger" topic="rename" prefix='${textErrorPrefix}'/>
 
     <form action="<wiki:Link format='url' jsp='Rename.jsp'/>"
            class="form-group form-inline"
@@ -127,7 +73,7 @@
       <input type="hidden" name="page" value="<wiki:Variable var='pagename' />" />
       <input class="btn btn-success" type="submit" name="rename" value="<fmt:message key='info.rename.submit' />" />
       <input class="form-control form-col-50" type="text" name="renameto"
-             value="<c:out value='${param.renameto}' default='<%= wikiPage.getName() %>'/>" size="40" />
+             value="<c:out value='${param.renameto}' default='${pageName}'/>" size="40" />
       <label class="btn btn-default" for="references">
         <input type="checkbox" name="references" id="references" checked="checked" />
         <fmt:message key="info.updatereferrers"/>
@@ -139,7 +85,7 @@
   </wiki:Permission>
 
   <wiki:Permission permission="delete">
-    <form action="<wiki:Link format='url' context='<%=ContextEnum.PAGE_DELETE.getRequestContext()%>' />"
+    <form action="<wiki:Link format='url' context='${deleteContext}' />"
            class="form-group"
               id="deleteForm"
           method="post" accept-charset="<wiki:ContentEncoding />" >
@@ -159,12 +105,12 @@
   <div class="tabs">
     <h4 id="history"><fmt:message key="info.history"/></h4>
 
-    <wiki:SetPagination start="<%=startitem%>" total="<%=itemcount%>" pagesize="<%=pagesize%>" maxlinks="9"
+    <wiki:SetPagination start="${startitem}" total="${itemcount}" pagesize="${pagesize}" maxlinks="9"
                        fmtkey="info.pagination"
-                         href='<%=c.getURL(ContextEnum.PAGE_INFO.getRequestContext(), wikiPage.getName(), "start=%s")%>' />
+                         href='${paginationURL}' />
 
-    <c:set var="first" value="<%= startitem %>"/>
-    <c:set var="last" value="<%= startitem + pagesize %>"/>
+    <c:set var="first" value="${startitem}"/>
+    <c:set var="last" value="${startitem + pagesize}"/>
 
     <div class="table-filter-sort-condensed-striped">
     <table class="table" aria-describedby="history">
@@ -178,7 +124,7 @@
       </tr>
 
       <wiki:HistoryIterator id="currentPage">
-      <c:if test="${ first == -1 || ((currentPage.version > first ) && (currentPage.version <= last )) }">
+      <c:if test="${first == -1 || ((currentPage.version > first) && (currentPage.version <= last))}">
       <tr>
         <td>
           <wiki:Link version="${currentPage.version}">
@@ -192,8 +138,7 @@
 
         <c:set var="pageSize"><wiki:PageSize /></c:set>
         <td class="nowrap" title="${pageSize} bytes">
-          <%--<fmt:formatNumber value='${pageSize/1000}' maxFractionDigits='3' minFractionDigits='1'/>&nbsp;<fmt:message key="info.kilobytes"/>--%>
-          <%= org.apache.commons.io.FileUtils.byteCountToDisplaySize( currentPage.getSize() ) %>
+          ${wiki:formatBytes(currentPage.size)}
         </td>
         <td><wiki:Author /></td>
 
@@ -207,8 +152,7 @@
           </wiki:CheckVersion>
         </td>
 
-        <c:set var="changenote" value="<%= (String)currentPage.getAttribute( Page.CHANGENOTE ) %>" />
-        <td class="changenote"><c:out value="${changenote}"/></td>
+        <td class="changenote"><c:out value="${wiki:getChangeNote(currentPage)}"/></td>
 
       </tr>
       </c:if>
@@ -242,7 +186,7 @@
     <%-- DIFF section --%>
     <wiki:CheckRequestContext context='diff'>
       <h4 data-activePane id="diff"><fmt:message key="diff.tab" /></h4>
-      <templateTags:DiffTab pageContext="<%=pageContext%>" />
+      <templateTags:DiffTab pageContext="${pageContext}" />
     </wiki:CheckRequestContext>
 
   </div>
@@ -252,10 +196,7 @@
 
 <%-- part 2 : attachments --%>
 <wiki:PageType type="attachment">
-<%
-  int MAXATTACHNAMELENGTH = 30;
-%>
-<c:set var="progressId" value="<%= c.getEngine().getManager( ProgressManager.class ).getNewProgressIdentifier() %>" />
+
 <wiki:Permission permission="upload">
 
   <form action="<wiki:Link jsp='attach' format='url'><wiki:Param name='progressid' value='${progressId}'/></wiki:Link>"
@@ -301,7 +242,7 @@
 </wiki:Permission>
 
 
-<form action="<wiki:Link format='url' context='<%=ContextEnum.PAGE_DELETE.getRequestContext()%>' ><wiki:Param name='tab' value='attach' /></wiki:Link>"
+<form action="<wiki:Link format='url' context='${deleteContext}' ><wiki:Param name='tab' value='attach' /></wiki:Link>"
            class="form-group"
               id="deleteForm"
           method="post" accept-charset="<wiki:ContentEncoding />" >
@@ -354,7 +295,7 @@
 	  </td>
 
       <td class="nowrap" title="${att.size} bytes" data-sortvalue="${att.size}">
-        <%= org.apache.commons.io.FileUtils.byteCountToDisplaySize( att.getSize() ) %>
+        ${formatBytes(att.size)}
       </td>
 
       <%-- see styles/fontjspwiki/icon.less : icon-file-<....>-o  --%>
@@ -369,13 +310,12 @@
          <td>
             <input type="button"
                    value="Restore"
-                   url="<wiki:Link format='url' context='<%=ContextEnum.PAGE_UPLOAD.getRequestContext()%>'/>"/>
+                   url="<wiki:Link format='url' context='${uploadContext}'/>"/>
          </td>
       </wiki:Permission>
       --%>
 
-      <c:set var="changenote" value="<%= (String)att.getAttribute( Page.CHANGENOTE ) %>" />
-        <td class="changenote"><c:out value="${changenote}"/></td>
+        <td class="changenote"><c:out value="${wiki:getChangeNote(att)}"/></td>
 
     </tr>
     </wiki:HistoryIterator><%-- </wiki:AttachmentsIterator> --%>

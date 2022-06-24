@@ -43,7 +43,7 @@
     <wiki:InsertPage />
   </div>
   <div class="resizer" data-resize=".comment-page" title="<fmt:message key='editor.plain.comment.resize'/>" ></div>
-  <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
+  <templateTags:Editor selector="${editorSelector}" pageContext="${pageContext}" />
 </div>
 
 <templateTags:EditClose/>

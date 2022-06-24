@@ -17,12 +17,11 @@
     under the License.
 --%>
 
-<%@ page import="org.apache.wiki.api.core.*" %>
-<%@ page import="javax.servlet.jsp.jstl.fmt.*" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
@@ -50,7 +49,7 @@
     </div>
   </wiki:CheckVersion>
 
-  <templateTags:Editor selector="${editorSelector}" pageContext="<%=pageContext%>" />
+  <templateTags:Editor selector="${editorSelector}" pageContext="${pageContext}" />
 
 </div>
 
