@@ -1,0 +1,19 @@
+==edit==
+CommentContent
+EditGroupContent
+EditContent
+
+
+==view==
+WorkflowContent
+PageContent
+PreferencesContent
+FindContent
+InfoContent
+PreviewContent
+ConflictContent
+NewGroupContent → PreferencesContent
+DisplayMessage
+LoginContent
+GroupContent → PreferencesContent
+DiffContent → InfoContent
