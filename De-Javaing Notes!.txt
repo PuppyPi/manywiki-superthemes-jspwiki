@@ -1,0 +1,8 @@
+find . -iname "*.jsp" -o -iname "*.tag" | pipeargs jedit %
+
+
+errorPage
+<%@ *tag *import
+<%@ *page
+<%$
+<%[^@-]

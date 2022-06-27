@@ -23,7 +23,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
 
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="templates.default"/>

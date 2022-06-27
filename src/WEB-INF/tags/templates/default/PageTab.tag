@@ -70,8 +70,9 @@
 
 
 <%--
-ISWEBLOG= <%= Context.findContext( pageContext ).getPage().getAttribute( /*ATTR_ISWEBLOG*/ "weblogplugin.isweblog" ) %>
+ISWEBLOG=Context.findContext( pageContext ).getPage().getAttribute( /*ATTR_ISWEBLOG*/ "weblogplugin.isweblog" )
 --%>
+
 <%--  IF BLOCOMMENT PAGE:  insert back buttons to mainblog and blogentry permalink --%>
 <c:set var="mainblogpage" value="${fn:substringBefore(param.page,'_comments_')}" />
 <c:if test="${not empty mainblogpage}">

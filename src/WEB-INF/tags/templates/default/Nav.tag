@@ -372,7 +372,7 @@
 <%--
   <wiki:PageExists>
   <wiki:PageType type="page">
-  <wiki:Tab id="attach" title="<%= attTitle %>" accesskey="a">
+  <wiki:Tab id="attach" title="${attTitle}" accesskey="a">
     <templateTags:AttachmentTab wikiPageContext="${wikiPageContext}" />
   </wiki:Tab>
   </wiki:PageType>

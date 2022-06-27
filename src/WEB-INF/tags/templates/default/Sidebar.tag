@@ -59,7 +59,7 @@
   </wiki:Permission>
 
   <%--
-  <div class="wikiversion text-center"><%=Release.APPNAME%> v<wiki:Variable var="jspwikiversion" /> <wiki:RSSImageLink title='<%=LocaleSupport.getLocalizedMessage(pageContext,"fav.aggregatewiki.title")%>' /></div>
+  <div class="wikiversion text-center">${wikiPageContext.nameAndVersion} <wiki:RSSImageLink title="<fmt:message key='fav.aggregatewiki.title'/>" /></div>
   --%>
 
 </div>
