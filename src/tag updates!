@@ -1,0 +1,81 @@
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
+
+
+
+. AttachmentTab.tag
+	pageContext → wikiEngine
+
+. commonheader.tag
+	wikiPageContext
+
+. DiffTab.tag
+	pageContext → wikiPageContext
+
+. UserBox.tag
+	pageContext → wikiPageContext
+
+. Footer.tag
+	wikiEngine
+
+. PageTab.tag
+	pageContext → wikiPageContext
+
+. Nav.tag
+	pageContext → wikiPageContext
+
+. ProfileTab.tag
+	pageContext → wikiPageContext
+
+. PreferencesTab.tag
+	pageContext → wikiPageContext
+
+. Sidebar.tag
+	pageContext → wikiPageContext
+
+. GroupTab.tag
+	pageContext → wikiPageContext
+
+. Editor.tag
+	pageContext → wikiPageContext
+
+. ViewOpen.tag
+	+ wikiPageContext
+
+. ViewClose.tag
+	+ wikiPageContext
+
+. EditOpen.tag
+	+ wikiPageContext
+
+. EditClose.tag
+	+ wikiPageContext
+
+. Header.tag
+	pageContext → wikiPageContext
+
+
+
+. localheader.tag
+	<templateTags:localheader/>
+	removed!!
+
+. perform this early in the processing of every page which invokes commonheader.tag!!
+	Preferences.setupPreferences(pageContext);  //COOKIE read client preferences
+
+
+
+
+
+. /templates/default/edit/CommentContent.jsp
+. /templates/default/edit/EditContent.jsp
+. /templates/default/edit/EditGroupContent.jsp
+
+. /templates/default/view/ConflictContent.jsp
+. /templates/default/view/DisplayMessage.jsp
+. /templates/default/view/FindContent.jsp
+. /templates/default/view/InfoContent.jsp
+. /templates/default/view/LoginContent.jsp
+. /templates/default/view/PageContent.jsp
+. /templates/default/view/PreferencesContent.jsp
+. /templates/default/view/PreviewContent.jsp
+. /templates/default/view/WorkflowContent.jsp

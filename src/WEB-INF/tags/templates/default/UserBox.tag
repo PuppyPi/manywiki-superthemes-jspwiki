@@ -17,18 +17,15 @@
     under the License.
 --%>
 
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="templates.default"/>
-<%
-  Context c = Context.findContext(pageContext);
-%>
-<c:set var="redirect"><%= c.getEngine().encodeName(c.getName()) %></c:set>
+
+<c:set var="redirect">${wikiPageContext.encodedName}</c:set>
 <c:set var="username"><wiki:UserName /></c:set>
 <c:set var="loginstatus"><wiki:Variable var='loginstatus'/></c:set>
 

@@ -23,7 +23,7 @@
 <html lang="en">
 <head>
 <title>JSPWiki administration</title>
-  <templateTags:commonheader pageContext="<%=pageContext%>" />
+  <templateTags:commonheader wikiPageContext="${wikiPageContext}" />
   <link rel="stylesheet" media="screen, projection, print" type="text/css"
         href="<wiki:Link format='url' templatefile='admin/admin.css'/>"/>
 </head>

@@ -17,116 +17,46 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="java.util.Properties"%>
-<%@ tag import="org.apache.commons.lang3.*" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.auth.*" %>
-<%@ tag import="org.apache.wiki.auth.permissions.*" %>
-<%@ tag import="org.apache.wiki.filters.*" %>
-<%@ tag import="org.apache.wiki.pages.PageManager" %>
-<%@ tag import="org.apache.wiki.parser.MarkupParser" %>
-<%@ tag import="org.apache.wiki.render.*" %>
-<%@ tag import="org.apache.wiki.ui.*" %>
-<%@ tag import="org.apache.wiki.util.TextUtil" %>
-<%@ tag import="org.apache.wiki.variables.VariableManager" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+
+<%-- local download of CKeditor --%>
+<wiki:RequestResource type="script" resource="scripts/ckeditor/ckeditor.js" />
+
+<%-- Use CKEditor from a CDN --%>
+<%-- <wiki:RequestResource type="script" resource="//cdn.ckeditor.com/4.5.1/standard/ckeditor.js" /> --%>
+
+<c:set var='context'><wiki:Variable var='requestcontext' /></c:set>
+
+
+<wiki:WYSIWYGEditorMode>
+	<c:set var="usertext" value="${wikiPageContext.editedTextOfActivePage}" />
+	
+	<wiki:CheckRequestContext context="edit">
+		<wiki:NoSuchPage> <%-- this is a new page, check if we're cloning --%>
+			<c:set var="ut" value="${wikiPage.noPageUsertextForEditor}" />
+			<c:set var="usertext" value="${ut == null ? usertext : ut}" />
+		</wiki:NoSuchPage>
+		
+		<c:set var="usertext" value="${usertext == null ? wikiPageContext.pureTextOfActivePage : usertext}" />
+	</wiki:CheckRequestContext>
+	
+	<c:set var="usertext" value="${usertext == null ? '' : usertext}" />
+	
+	<c:set var="pageAsHtml" value="${wikiPageContext.renderPageAsHTML(usertext)}" />
+</wiki:WYSIWYGEditorMode>
+
+
 <%--
     This provides the WYSIWYG CKeditor for JSPWiki.
 --%>
-<%
-    Context context = Context.findContext( pageContext );
-    Engine engine = context.getEngine();
 
-    /* local download of CKeditor */
-    TemplateManager.addResourceRequest( context, TemplateManager.RESOURCE_SCRIPT,
-           context.getURL( ContextEnum.PAGE_NONE.getRequestContext(), "scripts/ckeditor/ckeditor.js" ) );
-
-    /*  Use CKEditor from a CDN
-    TemplateManager.addResourceRequest( context, TemplateManager.RESOURCE_SCRIPT, "//cdn.ckeditor.com/4.5.1/standard/ckeditor.js" );
-    */
-
-    context.setVariable( Context.VAR_WYSIWYG_EDITOR_MODE, Boolean.TRUE );
-    context.setVariable( VariableManager.VAR_RUNFILTERS,  "false" );
-
-    Page wikiPage = context.getPage();
-    String originalCCLOption = (String)wikiPage.getAttribute( MarkupParser.PROP_CAMELCASELINKS );
-    wikiPage.setAttribute( MarkupParser.PROP_CAMELCASELINKS, "false" );
-
-    String usertext = EditorManager.getEditedText(pageContext);
-
-%>
-<c:set var='context'><wiki:Variable var='requestcontext' /></c:set>
-<wiki:CheckRequestContext context="edit">
-<wiki:NoSuchPage> <%-- this is a new page, check if we're cloning --%>
-<%
-  String clone = request.getParameter( "clone" );
-  if( clone != null )
-  {
-    Page p = engine.getManager( PageManager.class ).getPage( clone );
-    if( p != null )
-    {
-        AuthorizationManager mgr = engine.getManager( AuthorizationManager.class );
-        PagePermission pp = new PagePermission( p, PagePermission.VIEW_ACTION );
-
-        try
-        {
-          if( mgr.checkPermission( context.getWikiSession(), pp ) )
-          {
-            usertext = engine.getManager( PageManager.class ).getPureText( p );
-          }
-        }
-        catch( Exception e ) {  /*log.error( "Accessing clone page "+clone, e );*/ }
-    }
-  }
-%>
-</wiki:NoSuchPage>
-<%
-  if( usertext == null )
-  {
-    usertext = engine.getManager( PageManager.class ).getPureText( context.getPage() );
-  }
-%>
-</wiki:CheckRequestContext>
-<%
-    if( usertext == null ) usertext = "";
-
-    String pageAsHtml;
-    try
-    {
-        pageAsHtml = engine.getManager( RenderingManager.class ).getHTML( context, usertext );
-    }
-        catch( Exception e )
-    {
-        pageAsHtml = "Error in converting wiki-markup to well-formed HTML \n" + e.toString();
-        /*
-        java.io.StringWriter sw = new java.io.StringWriter();
-        java.io.PrintWriter pw = new java.io.PrintWriter(sw);
-        e.printStackTrace(pw);
-        pageAsHtml += "<pre>" + sw.toString() + "</pre>";
-        */
-    }
-
-   // Disable the WYSIWYG_EDITOR_MODE and reset the other properties immediately
-   // after the XHTML for CKeditor has been rendered.
-   context.setVariable( Context.VAR_WYSIWYG_EDITOR_MODE, Boolean.FALSE );
-   context.setVariable( VariableManager.VAR_RUNFILTERS,  null );
-   wikiPage.setAttribute( MarkupParser.PROP_CAMELCASELINKS, originalCCLOption );
-
-   /*FFS not used
-   String templateDir = (String)copyOfWikiProperties.get( Engine.PROP_TEMPLATEDIR );
-
-   String protocol = "http://";
-   if( request.isSecure() ) {
-       protocol = "https://";
-   }
-   */
-%>
 <form method="post" accept-charset="<wiki:ContentEncoding/>"
       action="<wiki:CheckRequestContext
      context='edit'><wiki:EditLink format='url'/></wiki:CheckRequestContext><wiki:CheckRequestContext
@@ -206,7 +136,7 @@
       </ul>
     </div>
 
-  <c:set var="editors" value="<%= engine.getManager( EditorManager.class ).getEditorList() %>" />
+  <c:set var="editors" value="${wikiPageContext.engine.editors}" />
   <c:if test='${fn:length(editors)>1}'>
    <div class="btn-group config">
       <%-- note: 'dropdown-toggle' is only here to style the last button properly! --%>
@@ -255,7 +185,7 @@
   <div class="row edit-area livepreview previewcolumn"><%-- .livepreview  .previewcolumn--%>
       <div>
         <textarea name="htmlPageText"
-             autofocus="autofocus"><%=pageAsHtml.replace("&", "&amp;")%></textarea>
+             autofocus="autofocus">${wiki:escapeHTML(pageAsHtml)}</textarea>
       </div>
       <div class="ajaxpreview" >Preview comes here</div>
   </div>

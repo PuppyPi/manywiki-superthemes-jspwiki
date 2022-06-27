@@ -17,15 +17,17 @@
     under the License.
 --%>
 
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 <%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="templates.default"/>
+
 <c:set var="frontpage"><wiki:Variable var="jspwiki.frontPage" /></c:set>
 
 <div class="header">
@@ -48,7 +50,7 @@
         </wiki:PageExists>
     </div>
 
-    <templateTags:UserBox pageContext="<%=pageContext%>" />
+    <templateTags:UserBox wikiPageContext="${wikiPageContext}" />
     <templateTags:SearchBox/>
 
     <div class="pagename" title="<wiki:PageName />">
@@ -68,6 +70,6 @@
     </div>
 
   </div>
-  <templateTags:Nav pageContext="<%=pageContext%>" />
+  <templateTags:Nav wikiPageContext="${wikiPageContext}" />
 
 </div>

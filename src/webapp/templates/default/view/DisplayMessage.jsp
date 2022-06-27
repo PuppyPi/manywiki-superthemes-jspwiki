@@ -22,7 +22,7 @@
 
 <%-- Inserts a string message. --%>
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
    <div class="error">
      <c:out value="${message}"/>
@@ -30,4 +30,4 @@
 
    <br clear="all" />
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

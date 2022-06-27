@@ -22,29 +22,29 @@ The "ContentSelector"s here must match up with org.apache.wiki.api.core.ContextE
 --%>
 
 <%@ attribute name="selector" type="java.lang.String" %>
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="templateEditorsTags" tagdir="/WEB-INF/tags/templates/default/editors" %>
 
 <c:choose>
 	<c:when test="${selector == 'EditorSelector_CKeditor'}">
-		<templateEditorsTags:CKeditor pageContext="<%=pageContext%>" />
+		<templateEditorsTags:CKeditor wikiPageContext="${wikiPageContext}" />
 	</c:when>
 	
 	<c:when test="${selector == 'EditorSelector_plain'}">
-		<templateEditorsTags:plain pageContext="<%=pageContext%>" />
+		<templateEditorsTags:plain wikiPageContext="${wikiPageContext}" />
 	</c:when>
 	
 	<c:when test="${selector == 'EditorSelector_preview'}">
-		<templateEditorsTags:preview pageContext="<%=pageContext%>" />
+		<templateEditorsTags:preview wikiPageContext="${wikiPageContext}" />
 	</c:when>
 	
 	<c:when test="${selector == 'EditorSelector_TinyMCE'}">
-		<templateEditorsTags:TinyMCE pageContext="<%=pageContext%>" />
+		<templateEditorsTags:TinyMCE wikiPageContext="${wikiPageContext}" />
 	</c:when>
 	
 	<c:when test="${selector == 'EditorSelector_wysiwyg'}">
-		<templateEditorsTags:wysiwyg pageContext="<%=pageContext%>" />
+		<templateEditorsTags:wysiwyg wikiPageContext="${wikiPageContext}" />
 	</c:when>
 	
 	

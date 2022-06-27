@@ -29,7 +29,7 @@
   <head>
 
   <title><fmt:message key="upload.title"><fmt:param><wiki:Variable var="applicationname"/></fmt:param></fmt:message></title>
-  <templateTags:commonheader pageContext="<%=pageContext%>" />
+  <templateTags:commonheader wikiPageContext="${wikiPageContext}" />
   <meta name="robots" content="noindex,nofollow" />
 </head>
 
@@ -37,7 +37,7 @@
 
 <div class="container${prefs.Layout=='fixed' ? ' ' : '-fluid ' } ${prefs.Orientation} fixed-header">
 
-  <templateTags:Header pageContext="<%=pageContext%>" />
+  <templateTags:Header wikiPageContext="${wikiPageContext}" />
 
   <c:set var="sidebarState"><wiki:Variable var="sidebar" default="${prefs.Sidebar}" /></c:set>
   <c:set var="sidebarCookie" value="Sidebar" />
@@ -50,7 +50,7 @@
                                        data-toggle-pref="${sidebarCookie}" >
     <div class="page" role="main">
       <wiki:PageExists>
-        <templateTags:AttachmentTab pageContext="<%=pageContext%>" />
+        <templateTags:AttachmentTab wikiPageContext="${wikiPageContext}" />
       </wiki:PageExists>
 
       <wiki:NoSuchPage>
@@ -63,9 +63,9 @@
 
       <templateTags:PageInfo/>
     </div>
-    <templateTags:Sidebar pageContext="<%=pageContext%>" />
+    <templateTags:Sidebar wikiPageContext="${wikiPageContext}" />
   </div>
-  <templateTags:Footer/>
+  <templateTags:Footer wikiPageContext="${wikiPageContext}" />
 
 </div>
 </body>

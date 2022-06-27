@@ -25,12 +25,12 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <div class="page-content">
 
 <wiki:UserCheck status="notAuthenticated">
-  <templateTags:PreferencesTab pageContext="${pageContext}" />
+  <templateTags:PreferencesTab wikiPageContext="${wikiPageContext}" />
 </wiki:UserCheck>
 
 <wiki:UserCheck status="authenticated">
@@ -39,13 +39,13 @@
   <h3 id="section-prefs">
     <fmt:message key="prefs.tab.prefs" />
   </h3>
-  <templateTags:PreferencesTab pageContext="${pageContext}" />
+  <templateTags:PreferencesTab wikiPageContext="${wikiPageContext}" />
 
   <wiki:Permission permission="editProfile">
   <wiki:UserProfile property="exists">
     <c:set var="profileTab" value="${param.tab == 'profile' ? 'data-activePane' : ''}"/>
     <h3 ${profileTab} id="section-profile"><fmt:message key="prefs.tab.profile"/></h3>
-    <templateTags:ProfileTab pageContext="${pageContext}" />
+    <templateTags:ProfileTab wikiPageContext="${wikiPageContext}" />
   </wiki:UserProfile>
   </wiki:Permission>
 
@@ -55,7 +55,7 @@
        <c:set var="groupTab">data-activePane</c:set>
     </wiki:CheckRequestContext>
     <h3 ${groupTab} id="section-groups"><fmt:message key="group.tab" /></h3>
-    <templateTags:GroupTab pageContext="${pageContext}" />
+    <templateTags:GroupTab wikiPageContext="${wikiPageContext}" />
   </wiki:Permission>
 
 </div>
@@ -63,4 +63,4 @@
 
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

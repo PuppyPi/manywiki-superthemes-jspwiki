@@ -17,29 +17,22 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.ui.*" %>
-<%@ tag import="org.apache.wiki.util.TextUtil" %>
-<%@ tag import="org.apache.wiki.filters.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
+
 <%--
         This is a special editor component for JSPWiki preview storage.
 --%>
-<%
-   Context context = Context.findContext( pageContext );
-   String usertext = (String)pageContext.getAttribute( EditorManager.ATTR_EDITEDTEXT, PageContext.REQUEST_SCOPE );
-   if( usertext == null ) usertext = "";
 
-   String action = "comment".equals(request.getParameter("action")) ?
-                   context.getURL( ContextEnum.PAGE_COMMENT.getRequestContext(), context.getName() ) :
-                   context.getURL( ContextEnum.PAGE_EDIT.getRequestContext(), context.getName() );
- %>
-<form action="<%=action%>"
+<c:set var="usertext" value="${wikiPageContext.editedTextOfActivePage}" />
+<c:set var="usertext" value="${usertext == null ? '' : usertext}" />
+
+<form action="${param.action == 'comment' ? commentURLOfActivePage : wikiPageContext.editURLOfActivePage}"
       method="post" accept-charset="<wiki:ContentEncoding/>"
        class=""
           id="editform"
@@ -56,9 +49,9 @@
     <wiki:SpamFilterInputs/>
   
   <textarea class="hidden" readonly="readonly"
-              id="editorarea" name="<%=EditorManager.REQ_EDITEDTEXT%>"
+              id="editorarea" name="_editedtext"
             rows="4"
-            cols="80"><%=TextUtil.replaceEntities(usertext)%></textarea>
+            cols="80">${wiki:escapeHTML(usertext)}</textarea>
 
   <div class="form-group">
     <input class="btn btn-primary" type="submit" name="edit" value="<fmt:message key='editor.preview.edit.submit'/>"

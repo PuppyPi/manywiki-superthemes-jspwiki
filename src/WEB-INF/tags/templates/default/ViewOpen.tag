@@ -17,6 +17,7 @@
     under the License.
 --%>
 
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -38,7 +39,7 @@
 				</fmt:param>
 			</fmt:message>
 		</title>
-		<templateTags:commonheader pageContext="${pageContext}"/>
+		<templateTags:commonheader wikiPageContext="${wikiPageContext}"/>
 		<wiki:CheckVersion mode="notlatest">
 			<meta name="robots" content="noindex,nofollow" />
 		</wiki:CheckVersion>
@@ -52,7 +53,7 @@
 	
 	<body class="context-<wiki:Variable var='requestcontext' default='' />">
 		<div class="container${prefs.Layout=='fixed' ? ' ' : '-fluid ' } ${prefs.Orientation} fixed-header">
-			<templateTags:Header pageContext="${pageContext}" />
+			<templateTags:Header wikiPageContext="${wikiPageContext}" />
 			<c:set var="sidebarState">
 				<wiki:Variable var="sidebar" default="${prefs.Sidebar}" />
 			</c:set>

@@ -17,21 +17,15 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="java.util.*" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.pages.PageManager" %>
-<%@ tag import="org.apache.wiki.tags.InsertDiffTag" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  Context c = Context.findContext( pageContext );
-%>
-<c:set var="history" value="<%= c.getEngine().getManager( PageManager.class ).getVersionHistory(c.getPage().getName()) %>" />
+
+<c:set var="history" value="${wikiPageContext.versionHistoryOfCurrentPage}" />
 <c:set var="diffprovider"><wiki:Variable var="jspwiki.diffProvider" /></c:set>
 <wiki:PageExists>
 <form action="<wiki:Link jsp='Diff.jsp' format='url' />"

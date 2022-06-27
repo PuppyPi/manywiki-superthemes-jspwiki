@@ -17,23 +17,17 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.auth.*" %>
-<%@ tag import="org.apache.wiki.ui.progress.*" %>
-<%@ tag import="org.apache.wiki.auth.permissions.*" %>
-<%@ tag import="java.security.Permission" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  int MAXATTACHNAMELENGTH = 30;
-  Context c = Context.findContext(pageContext);
-%>
-<c:set var="progressId" value="<%= c.getEngine().getManager( ProgressManager.class ).getNewProgressIdentifier() %>" />
+
+<c:set var="progressId" value="${wikiPageContext.engine.newProgressIdentifier()}" />
+
 <div class="page-content">
 <wiki:Permission permission="upload">
 
@@ -134,7 +128,7 @@
       </td>
 
       <td class="nowrap" title="${att.size} bytes" data-sortvalue="${att.size}">
-        <%= org.apache.commons.io.FileUtils.byteCountToDisplaySize( att.getSize() ) %>
+        ${wiki:formatBytes(att.size)}
       </td>
 
       <td class="attach-type"><span class="icon-file-${fn:toLowerCase(type)}-o"></span>${type}</td>
@@ -149,13 +143,12 @@
           <input type="button"
                 class="btn btn-danger btn-xs"
                 value="<fmt:message key='attach.delete'/>"
-                  src="<wiki:Link format='url' context='<%=ContextEnum.PAGE_DELETE.getRequestContext()%>' ><wiki:Param name='tab' value='attach' /></wiki:Link>"
+                  src="<wiki:Link format='url' context='del' ><wiki:Param name='tab' value='attach' /></wiki:Link>"
               onclick="document.deleteForm.action=this.src; document.deleteForm['delete-all'].click();" />
         </wiki:Permission>
       </td>
 
-      <c:set var="changenote" value="<%= (String)att.getAttribute( Page.CHANGENOTE ) %>" />
-      <td class="changenote"><c:out value="${changenote}"/></td>
+      <td class="changenote"><c:out value="${att.getAttribute('changenote')}"/></td>
 
     </tr>
     </wiki:AttachmentsIterator>

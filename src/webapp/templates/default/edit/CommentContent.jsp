@@ -26,7 +26,7 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:EditOpen/>
+<templateTags:EditOpen wikiPageContext="${wikiPageContext}" />
 
 <%--
    First insert the main page or the corresponding blog-entry page
@@ -43,7 +43,7 @@
     <wiki:InsertPage />
   </div>
   <div class="resizer" data-resize=".comment-page" title="<fmt:message key='editor.plain.comment.resize'/>" ></div>
-  <templateTags:Editor selector="${editorSelector}" pageContext="${pageContext}" />
+  <templateTags:Editor selector="${editorSelector}" wikiPageContext="${wikiPageContext}" />
 </div>
 
-<templateTags:EditClose/>
+<templateTags:EditClose wikiPageContext="${wikiPageContext}" />

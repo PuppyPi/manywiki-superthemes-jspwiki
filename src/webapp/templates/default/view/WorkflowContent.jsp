@@ -26,7 +26,7 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <div class="page-content table-filter-sort">
 
@@ -185,4 +185,4 @@
 </wiki:UserCheck>
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

@@ -17,11 +17,7 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.api.providers.WikiProvider" %>
-<%@ tag import="org.apache.wiki.pages.PageManager" %>
-<%@ tag import="org.apache.wiki.util.TextUtil" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -34,17 +30,14 @@
 
 <c:choose>
 <c:when test="${param.tab == 'attach'}">
-  <templateTags:AttachmentTab pageContext="<%=pageContext%>" />
+  <templateTags:AttachmentTab wikiPageContext="${wikiPageContext}" />
 </c:when>
 <c:otherwise>
 
 <%-- If the page is an older version, then offer a note and a possibility to restore this version as the latest one. --%>
 <wiki:CheckVersion mode="notlatest">
-  <%
-    Context c = Context.findContext( pageContext );
-  %>
-  <c:set var="thisVersion" value="<%= c.getPage().getVersion() %>" />
-  <c:set var="latestVersion" value="<%= c.getEngine().getManager( PageManager.class ).getPage( c.getPage().getName(), WikiProvider.LATEST_VERSION ).getVersion() %>" />
+  <c:set var="thisVersion" value="${wikiPageContext.page.version}" />
+  <c:set var="latestVersion" value="${wikiPageContext.version}" />
 
   <form action="<wiki:Link format='url' jsp='Wiki.jsp'/>"
         method="get"  accept-charset='UTF-8'>

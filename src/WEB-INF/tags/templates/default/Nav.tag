@@ -17,31 +17,20 @@
     under the License.
 --%>
 
-<%@ tag import="java.util.StringTokenizer" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.attachment.*" %>
-<%@ tag import="org.apache.wiki.pages.PageManager" %>
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
-<%
-  Context c = Context.findContext( pageContext );
+<fmt:setBundle basename="templates.default"/>                                                                                                                              
 
-  String text = c.getEngine().getManager( PageManager.class ).getText( c.getPage() );
-  StringTokenizer tokens = new StringTokenizer( text );
-  //avg reading speeds: https://iovs.arvojournals.org/article.aspx?articleid=2166061
+<c:set var="attachments" value="${wikiPageContext.numberOfAttachmentsOnCurrentPage}" />
 
-%>
-<c:set var="attachments" value="<%= c.getEngine().getManager( AttachmentManager.class ).listAttachments( c.getPage() ).size() %>" />
-
-<c:set var="wordCount" value="<%= tokens.countTokens() %>" />
+<%-- avg reading speeds: https://iovs.arvojournals.org/article.aspx?articleid=2166061 --%>
+<c:set var="wordCount" value="${wikiPageContext.wordCountOfCurrentPage}" />
 <c:set var="readingTime" value="${wordCount / 228}" />
 
 
@@ -384,7 +373,7 @@
   <wiki:PageExists>
   <wiki:PageType type="page">
   <wiki:Tab id="attach" title="<%= attTitle %>" accesskey="a">
-    <templateTags:AttachmentTab pageContext="<%=pageContext%>" />
+    <templateTags:AttachmentTab wikiPageContext="${wikiPageContext}" />
   </wiki:Tab>
   </wiki:PageType>
 

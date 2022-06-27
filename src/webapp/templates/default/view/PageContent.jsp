@@ -23,14 +23,14 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <%-- Main Content Section --%>
 <%-- This has been source ordered to come first in the markup (and on small devices)
      but to be to the right of the nav on larger screens --%>
 <div class="page-content <wiki:Variable var='page-styles' default='' />">
 
-  <templateTags:PageTab pageContext="${pageContext}" />
+  <templateTags:PageTab wikiPageContext="${wikiPageContext}" />
 
   <wiki:PageType type="attachment">
     <div><%-- insert the actual attachement, image, etc... --%>
@@ -40,4 +40,4 @@
 
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

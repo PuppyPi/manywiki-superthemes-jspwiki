@@ -17,66 +17,39 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.auth.*" %>
-<%@ tag import="org.apache.wiki.auth.permissions.*" %>
-<%@ tag import="org.apache.wiki.filters.SpamFilter" %>
-<%@ tag import="org.apache.wiki.pages.PageManager" %>
-<%@ tag import="org.apache.wiki.tags.*" %>
-<%@ tag import="org.apache.wiki.ui.*" %>
-<%@ tag import="org.apache.wiki.util.TextUtil" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%--
-        This is a plain editor for JSPWiki.
---%>
-<%
-   Context context = Context.findContext( pageContext );
-   Engine engine = context.getEngine();
 
-   String usertext = EditorManager.getEditedText( pageContext );
-%>
 <wiki:RequestResource type="script" resource="scripts/haddock-edit.js" />
 <wiki:RequestResource type="script" resource="engine://jspwiki.syntax.plain" />
 <wiki:RequestResource type="script" resource="scripts/haddock-wiki-edit.js" />
 <c:set var='context'><wiki:Variable var='requestcontext' /></c:set>
-<wiki:CheckRequestContext context="edit">
-<wiki:NoSuchPage> <%-- this is a new page, check if we're cloning --%>
-<%
-  String clone = request.getParameter( "clone" );
-  if( clone != null )
-  {
-    Page p = engine.getManager( PageManager.class ).getPage( clone );
-    if( p != null )
-    {
-        AuthorizationManager mgr = engine.getManager( AuthorizationManager.class );
-        PagePermission pp = new PagePermission( p, PagePermission.VIEW_ACTION );
 
-        try
-        {
-          if( mgr.checkPermission( context.getWikiSession(), pp ) )
-          {
-            usertext = engine.getManager( PageManager.class ).getPureText( p );
-          }
-        }
-        catch( Exception e ) {  /*log.error( "Accessing clone page "+clone, e );*/ }
-    }
-  }
-%>
-</wiki:NoSuchPage>
-<%
-  if( usertext == null )
-  {
-    usertext = engine.getManager( PageManager.class ).getPureText( context.getPage() );
-  }
-%>
+
+
+<c:set var="usertext" value="${wikiPageContext.editedTextOfActivePage}" />
+
+<wiki:CheckRequestContext context="edit">
+	<wiki:NoSuchPage> <%-- this is a new page, check if we're cloning --%>
+		<c:set var="ut" value="${wikiPage.noPageUsertextForEditor}" />
+		<c:set var="usertext" value="${ut == null ? usertext : ut}" />
+	</wiki:NoSuchPage>
+	
+	<c:set var="usertext" value="${usertext == null ? wikiPageContext.pureTextOfActivePage : usertext}" />
 </wiki:CheckRequestContext>
-<% if( usertext == null ) usertext = "";  %>
+
+<c:set var="usertext" value="${usertext == null ? '' : usertext}" />
+
+
+<%--
+        This is a plain editor for JSPWiki.
+--%>
 
 <form method="post" accept-charset="<wiki:ContentEncoding/>"
       action="<wiki:Link context='${context}' format='url'/>"
@@ -227,7 +200,7 @@
       </ul>
     </div>
 
-    <c:set var="editors" value="<%= context.getEngine().getManager( EditorManager.class ).getEditorList() %>" />
+    <c:set var="editors" value="${wikiPageContext.engine.editors}" />
     <c:if test='${fn:length(editors) > 1}'>
     <div class="btn-group config">
       <%-- note: 'dropdown-toggle' is only here to style the last button properly! --%>
@@ -345,8 +318,8 @@
            <wiki:CheckRequestContext context="comment">placeholder="<fmt:message key='editor.plain.comment'/>"</wiki:CheckRequestContext>
                   autofocus="autofocus"
                   rows="20" cols="80"></textarea>
-        <textarea class="editor form-control hidden" id="editorarea" name="<%=EditorManager.REQ_EDITEDTEXT%>"
-                  rows="20" cols="80"><%= TextUtil.replaceEntities(usertext) %></textarea>
+        <textarea class="editor form-control hidden" id="editorarea" name="_editedtext"
+                  rows="20" cols="80">${wiki:escapeHTML(usertext)}</textarea>
       </div>
       <div class="ajaxpreview empty"></div>
     </div>

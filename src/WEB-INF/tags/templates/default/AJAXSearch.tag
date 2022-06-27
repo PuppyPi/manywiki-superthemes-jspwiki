@@ -17,92 +17,15 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
+<%@ attribute name="searchresults" type="java.util.List" %>
+<%@ attribute name="maxitems" type="int" %>
+
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%-- <%@ tag language="java" pageEncoding="UTF-8"%> --%>
-<%@ tag import="java.util.*" %>
-<%@ tag import="java.util.Collection" %>
-<%@ tag import="java.net.URLEncoder" %>
-<%@ tag import="org.apache.commons.lang3.*" %>
-<%@ tag import="org.apache.logging.log4j.Logger" %>
-<%@ tag import="org.apache.logging.log4j.LogManager" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.api.spi.Wiki" %>
-<%@ tag import="org.apache.wiki.api.search.SearchResult" %>
-<%@ tag import="org.apache.wiki.auth.*" %>
-<%@ tag import="org.apache.wiki.auth.permissions.*" %>
-<%@ tag import="org.apache.wiki.preferences.Preferences" %>
-<%@ tag import="org.apache.wiki.search.SearchManager" %>
-<%@ tag import="org.apache.wiki.ui.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%!
-  public void jspInit()
-  {
-    wiki = Wiki.engine().find( pageContext.getServletConfig() );
-  }
-  Logger log = LogManager.getLogger("JSPWikiSearch");
-  Engine wiki;
-%>
-<%
-  /* ********************* actual start ********************* */
-  /* FIXME: too much hackin on this level -- should better happen in toplevel jsp's */
-
-  Context wikiContext = Wiki.context().create( wiki, request, ContextEnum.WIKI_FIND.getRequestContext() );
-  if(!wiki.getManager( AuthorizationManager.class ).hasAccess( wikiContext, response ) ) return;
-
-  String query = request.getParameter( "query");
-
-  if( (query != null) && ( !query.trim().equals("") ) )
-  {
-    try
-    {
-      Collection< SearchResult > list = wiki.getManager( SearchManager.class ).findPages( query, wikiContext );
-
-      //  Filter down to only those that we actually have a permission to view
-      AuthorizationManager mgr = wiki.getManager( AuthorizationManager.class );
-
-      ArrayList< SearchResult > items = new ArrayList<>();
-
-      for( Iterator< SearchResult > i = list.iterator(); i.hasNext(); )
-      {
-        SearchResult r = i.next();
-
-        Page p = r.getPage();
-
-        PagePermission pp = new PagePermission( p, PagePermission.VIEW_ACTION );
-
-        try
-        {
-          if( mgr.checkPermission( wikiContext.getWikiSession(), pp ) )
-          {
-            items.add( r );
-          }
-        }
-        catch( Exception e ) { log.error( "Searching for page "+p, e ); }
-      }
-
-      pageContext.setAttribute( "searchresults", items, PageContext.REQUEST_SCOPE );
-    }
-    catch( Exception e )
-    {
-       wikiContext.getWikiSession().addMessage( e.getMessage() );
-    }
-  }
-%>
-<%
-  int startitem = 0; // first item to show
-  int maxitems = 20; // number of items to show in result
-
-  String parm_start    = request.getParameter( "start");
-  if( parm_start != null ) startitem = Integer.parseInt( parm_start ) ;
-
-  Collection list = (Collection)pageContext.getAttribute( "searchresults", PageContext.REQUEST_SCOPE );
-  if( startitem == -1 ) maxitems = list.size(); //show all
-%>
 
 <wiki:SearchResults>
 
@@ -121,7 +44,7 @@
        target="_blank">Wikipedia</a>
   </p>
 
-  <wiki:SetPagination start="${param.start}" total="<%=list.size()%>" pagesize="20" maxlinks="9"
+  <wiki:SetPagination start="${param.start}" total="${searchresults.size}" pagesize="20" maxlinks="9"
                      fmtkey="info.pagination"
                     onclick="$('start').value=%s; SearchBox.runfullsearch();" />
 
@@ -134,16 +57,14 @@
          <th scope="col"><fmt:message key="find.results.score"/></th>
       </tr>
 
-      <wiki:SearchResultIterator id="searchref" start="${param.start}" maxItems="<%=maxitems%>">
+      <wiki:SearchResultIterator id="searchref" start="${param.start}" maxItems="${maxitems}">
       <tr>
         <td><wiki:LinkTo><wiki:PageName/></wiki:LinkTo></td>
-        <td><span class="gBar"><%= searchref.getScore() %></span></td>
+        <td><span class="gBar">${searchref.score}</span></td>
       </tr>
 
 	  <c:if test="${param.details == 'on'}">
-		<%
-				List<String> contexts = asList(searchref.getContexts());
-		%>
+		<c:set var="contexts" value="${searchref.contexts}" />
 		
 		<c:if test="${(contexts != null) && (contexts.size > 0)}">
 			  <tr class="odd" >
@@ -172,6 +93,6 @@
 
     </div>
     </div>
-    ${pagination}
+    ${pagination}  <%-- todo: is this a hidden variable from <wiki:SetPagination> ?? --%>
 
    </wiki:SearchResults>

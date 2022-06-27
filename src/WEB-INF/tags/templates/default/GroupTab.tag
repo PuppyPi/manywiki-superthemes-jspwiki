@@ -17,47 +17,15 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="java.security.Principal" %>
-<%@ tag import="java.text.MessageFormat" %>
-<%@ tag import="java.util.*" %>
-<%@ tag import="org.apache.logging.log4j.Logger" %>
-<%@ tag import="org.apache.logging.log4j.LogManager" %>
-<%@ tag import="org.apache.wiki.api.core.Context" %>
-<%@ tag import="org.apache.wiki.auth.*" %>
-<%@ tag import="org.apache.wiki.auth.authorize.Group" %>
-<%@ tag import="org.apache.wiki.auth.authorize.GroupManager" %>
-<%@ tag import="org.apache.wiki.auth.permissions.GroupPermission" %>
-<%@ tag import="org.apache.wiki.auth.authorize.GroupManager" %>
-<%@ tag import="org.apache.wiki.preferences.Preferences" %>
-<%@ tag import="org.apache.wiki.util.comparators.PrincipalComparator" %>
-<%-- <%@ tag errorPage="/Error.jsp" %> --%>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  Context c = Context.findContext( pageContext );
 
-  // Extract the group name and members
-  //String name = request.getParameter( "group" );
-  //Group group = (Group)pageContext.getAttribute( "Group",PageContext.REQUEST_SCOPE );
-
-  AuthorizationManager authMgr = c.getEngine().getManager( AuthorizationManager.class );
-  GroupManager groupMgr = c.getEngine().getManager( GroupManager.class );
-
-  Principal[] groups = groupMgr.getRoles();
-  Arrays.sort( groups, new PrincipalComparator() );
-
-  String name = null;
-  Group group = null;
-  Principal[] members = null;
-  StringBuffer membersAsString = null;
-
-%>
-<c:set var="groups" value="<%= groups %>" />
+<c:set var="groupPrincipals" value="${wikiPageContext.groupPrincipals}" />
 
 <wiki:CheckRequestContext context="!createGroup"><c:set var="createFormClose" value="-close"/></wiki:CheckRequestContext>
 <wiki:Permission permission="createGroups">
@@ -123,23 +91,16 @@
       <th scope="col"><fmt:message key="group.actions"/></th>
     </thead>
     <tbody>
-    <%
-    for( int g = 0; g < groups.length; g++ )
-    {
-      if ( groups[g] instanceof GroupPrincipal )
-      {
-        name = groups[g].getName();
-        group = groupMgr.getGroup( name );
-        members = group.members();
-        Arrays.sort( members, new PrincipalComparator() );
-        pageContext.setAttribute("members", members);
-    %>
-    <c:set var="group" value="<%= group %>" />
+    
+    <c:forEach var="groupPrincipal" items="groupPrincipals">
+	    <c:set var="name" value="${groupPrincipal.name}" />
+	    <c:set var="group" value="${wikiPageContext.getGroupByName(name)}" />
+	    <c:set var="memberPrincipals" value="${wikiPageContext.getGroupMembers(group)}" />
     <tr class="${param.group == group.name ? 'highlight' : ''}">
       <%--<td><wiki:Link jsp='Group.jsp'><wiki:Param name='group' value='${group.name}'/>${group.name}</wiki:Link></td>--%>
       <td><c:if test="${group.name =='Admin'}"><span class="icon-unlock-alt"></span> </c:if>${group.name}</td>
       <td>
-        <c:forEach items="${members}" var="member" varStatus="iterator">
+        <c:forEach items="${memberPrincipals}" var="member" varStatus="iterator">
           <c:if test="${iterator.index > 0}">, </c:if>
           ${member.name}
         </c:forEach>
@@ -153,7 +114,7 @@
       <%--
         We can't use wiki:Permission, cause we are in a loop; so let's just borrow some code from PermissionTag.java
       --%>
-      <c:if test='<%= authMgr.checkPermission( c.getWikiSession(), new GroupPermission( name, "edit" ) ) %>'>
+      <c:if test='${wikiPageContext.checkPermission(name, "edit")}'>
       <%-- <wiki:Permission permission="editGroup"> --%>
         <a class="btn btn-xs btn-primary"
             href="<wiki:Link format='url' jsp='EditGroup.jsp'><wiki:Param name='group' value='${group.name}' /></wiki:Link>" >
@@ -162,7 +123,7 @@
       <%--</wiki:Permission>--%>
       </c:if>
 
-      <c:if test='<%= authMgr.checkPermission( c.getWikiSession(), new GroupPermission( name, "delete" ) ) %>'>
+      <c:if test='${wikiPageContext.checkPermission(name, "delete")}'>
       <%-- <wiki:Permission permission="deleteGroup"> --%>
         <button class="btn btn-xs btn-danger" type="button" onclick="document.deleteGroupForm.group.value ='${group.name}';document.deleteGroupForm.ok.click();">
           <fmt:message key="actions.deletegroup"/>
@@ -171,10 +132,7 @@
       </c:if>
       </td>
     </tr>
-    <%
-        } /* end of if-GroupPrincipal */
-    } /* end of for loop */
-    %>
+    </c:forEach>
     </tbody>
   </table>
 </div>

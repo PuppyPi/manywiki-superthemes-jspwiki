@@ -17,18 +17,15 @@
     under the License.
 --%>
 
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.ui.*" %>
-<%@ tag import="org.apache.wiki.util.*" %>
-<%@ tag import="org.apache.wiki.preferences.Preferences" %>
-<%@ tag import="java.util.*" %>
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="templates.default"/>
+
 <%--
    This file provides a common header which includes the important JSPWiki scripts and other files.
    You need to include this in your template, within <head> and </head>.  It is recommended that
@@ -59,11 +56,6 @@ BOOTSTRAP, IE compatibility / http://getbootstrap.com/getting-started/#support-i
   </c:if>
 </wiki:PageExists>
 
-
-<%-- COOKIE read client preferences --%>
-<%
-   Preferences.setupPreferences(pageContext);
-%>
 
 <%-- Localized JS; must come before any css, to avoid blocking immediate execution --%>
 <%-- var LocalizedStrings= { "javascript.<xx>":"...", etc. } --%>
@@ -97,7 +89,7 @@ String.I18N.PREFIX = "javascript.";
 <meta name="wikiPageUrl" content='<wiki:Link format="url"  page="#$%"/>' />
 <meta name="wikiEditUrl" content='<wiki:EditLink format="url" page="#$%"/>' />
 <meta name="wikiCloneUrl" content='<wiki:EditLink format="url" page="#$%"/>&clone=<wiki:Variable var="pagename" />' />
-<meta name="wikiJsonUrl" content='<%= Context.findContext(pageContext).getURL( ContextEnum.PAGE_NONE.getRequestContext(), "ajax" ) %>' /><%--unusual pagename--%>
+<meta name="wikiJsonUrl" content='${wikiPageContext.wikiJsonURL}' /><%--unusual pagename--%>
 <meta name="wikiPageName" content='<wiki:Variable var="pagename" />' /><%--pagename without blanks--%>
 <meta name="wikiUserName" content="<wiki:UserName />" />
 <meta name="wikiTemplateUrl" content='<wiki:Link format="url" templatefile="" />' />
@@ -157,5 +149,3 @@ String.I18N.PREFIX = "javascript.";
 <script type="text/javascript"
          src="<wiki:Link format='url' templatefile='skins/' /><c:out value='${prefs.SkinName}/skin.js' />" ></script>
 </c:if>
-
-<templateTags:localheader/>

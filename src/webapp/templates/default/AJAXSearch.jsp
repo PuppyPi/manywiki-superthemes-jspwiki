@@ -17,19 +17,12 @@
     under the License.
 --%>
 
-<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="templateTags" tagdir="/WEB-INF/tags/templates/default" %>
 
 <fmt:setLocale value="${prefs.Language}" />
-<fmt:setBundle basename="templates.default"/>
+<fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<div class="footer">
-
-  <wiki:InsertPage page="CopyrightNotice"/>
-
-  <div class="wiki-version">${wikiPageContext.engine.nameAndVersion}
-    <wiki:RSSImageLink title="<fmt:message key='fav.aggregatewiki.title'/>" mode="full"/>
-  </div>
-
-</div>
+<templateTags:AJAXSearch searchresults="${searchresults}" maxitems="${maxitems}" />

@@ -17,6 +17,7 @@
     under the License.
 --%>
 
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -51,11 +52,11 @@
 			</wiki:CheckRequestContext>
 		</title>
 		<meta name="robots" content="noindex,follow" />
-		<templateTags:commonheader pageContext="${pageContext}" />
+		<templateTags:commonheader wikiPageContext="${wikiPageContext}" />
 	</head>
 	
 	<body class="context-<wiki:Variable var='requestcontext' />">
 		<div class="container${prefs.Layout=='fixed' ? ' ' : '-fluid ' } ${prefs.Orientation}">
-			<templateTags:Header pageContext="${pageContext}" />
+			<templateTags:Header wikiPageContext="${wikiPageContext}" />
 			<div class="content" data-toggle="li#menu,.sidebar>.close">
 				<div class="page">

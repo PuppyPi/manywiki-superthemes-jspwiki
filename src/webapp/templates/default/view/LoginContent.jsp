@@ -25,7 +25,7 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <div class="page-content">
 
@@ -170,7 +170,7 @@
 <c:set var="registerTab" value="${param.tab == 'register' ? 'data-activePane': ''}"/>
 <h3 ${registerTab} id="section-register"><fmt:message key="login.register.tab" /></h3>
 
-<%-- <templateTags:ProfileTab pageContext="${pageContext}" /> --%>
+<%-- <templateTags:ProfileTab wikiPageContext="${wikiPageContext}" /> --%>
 <form action="<wiki:Link jsp='Login.jsp' format='url'><wiki:Param name='tab' value='register'/></wiki:Link>"
           id="editProfile"
        class="login-form"
@@ -259,4 +259,4 @@
 
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

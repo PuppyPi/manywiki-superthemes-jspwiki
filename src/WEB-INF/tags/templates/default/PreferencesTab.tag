@@ -17,31 +17,22 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%-- <%@ tag errorPage="/Error.jsp" %> --%>
-<%@ tag import="java.io.*" %>
-<%@ tag import="java.util.*" %>
-<%@ tag import="java.util.jar.*" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.ui.*" %>
-<%@ tag import="org.apache.wiki.preferences.*" %>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  Context c = Context.findContext( pageContext );
-  TemplateManager t = c.getEngine().getManager( TemplateManager.class );
-%>
-<c:set var="skins"       value="<%= t.listSkins(pageContext, c.getTemplate() ) %>" />
-<c:set var="languages"   value="<%= t.listLanguages(pageContext) %>" />
-<c:set var="timezones"   value="<%= t.listTimeZones(pageContext) %>" />
-<c:set var="timeformats" value="<%= t.listTimeFormats(pageContext) %>" />
-<c:set var="editors"     value="<%= c.getEngine().getManager( EditorManager.class ).getEditorList() %>" />
-<c:set var="redirect"><wiki:Variable var='redirect' default='<%=c.getEngine().getFrontPage() %>' /></c:set>
+
+<c:set var="wikiEngine"  value="${wikiPageContext.engine}" />
+<c:set var="skins"       value="${wikiEngine.listSkins}" />
+<c:set var="languages"   value="${wikiEngine.listLanguages}" />
+<c:set var="timezones"   value="${wikiEngine.listTimeZones}" />
+<c:set var="timeformats" value="${wikiEngine.listTimeFormats}" />
+<c:set var="editors"     value="${wikiEngine.editors}" />
+<c:set var="redirect"><wiki:Variable var='redirect' default='${wikiEngine.frontPage}' /></c:set>
 
 <form action="<wiki:Link jsp='UserPreferences.jsp' format='url'><wiki:Param name='tab' value='prefs'/></wiki:Link>"
           id="preferences"  <%-- used by Prefs.js to set/reset the userpreferences cookie --%>
@@ -220,7 +211,7 @@
       <th scope="col"><fmt:message key="prefs.user.pagecookies.page"/></th>
       <th scope="col"><fmt:message key="prefs.user.pagecookies.actions"/></th>
     </tr>
-    <c:forEach var="aCookie" items="${pageContext.request.cookies}" >
+    <c:forEach var="aCookie" items="${wikiPageContext.cookies}" >
       <c:if test="${fn:startsWith(aCookie.name,'JSPWiki.') }">
         <c:set var="cookiePieces" value="${fn:split(aCookie.name, '.')}" />
         <c:set var="cookieType" value="${cookiePieces[1]}" />

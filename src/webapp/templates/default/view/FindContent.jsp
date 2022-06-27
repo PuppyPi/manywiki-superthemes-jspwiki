@@ -26,7 +26,7 @@
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <div class="page-content">
 
@@ -79,8 +79,8 @@
 
 </form>
 
-<div><templateTags:AJAXSearch pageContext="${pageContext}" /></div>
+<div><templateTags:AJAXSearch searchresults="${searchresults}" maxitems="${maxitems}" /></div>
 
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

@@ -26,7 +26,7 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:EditOpen/>
+<templateTags:EditOpen wikiPageContext="${wikiPageContext}" />
 
 <c:set var="name" value="${name}" />
 <c:set var="members" value="${membersAsString}" />
@@ -64,4 +64,4 @@
 
 </div>
 
-<templateTags:EditClose/>
+<templateTags:EditClose wikiPageContext="${wikiPageContext}" />

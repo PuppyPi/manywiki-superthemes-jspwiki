@@ -17,6 +17,7 @@
     under the License.
 --%>
 
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -28,9 +29,9 @@
 
 					<templateTags:PageInfo/>
 				</div>
-				<templateTags:Sidebar pageContext="${pageContext}" />
+				<templateTags:Sidebar wikiPageContext="${wikiPageContext}" />
 			</div>
-			<templateTags:Footer/>
+			<templateTags:Footer wikiPageContext="${wikiPageContext}" />
 		</div>
 	</body>
 </html>

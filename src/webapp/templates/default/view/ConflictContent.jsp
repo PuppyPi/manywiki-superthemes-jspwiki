@@ -25,7 +25,7 @@
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <div class="page-content prettify">
 
@@ -49,4 +49,4 @@
 
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

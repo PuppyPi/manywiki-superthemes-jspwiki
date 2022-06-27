@@ -24,13 +24,13 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <%-- Inserts page content for preview. --%>
 <div class="page-content preview-content">
 
   <div class="information">
-    <templateTags:Editor selector="${editorSelector}" pageContext="${pageContext}" />
+    <templateTags:Editor selector="${editorSelector}" wikiPageContext="${wikiPageContext}" />
     <p class="help-block"><fmt:message key="preview.info"/></p>
   </div>
 
@@ -44,4 +44,4 @@
 
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />

@@ -25,7 +25,7 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:EditOpen/>
+<templateTags:EditOpen wikiPageContext="${wikiPageContext}" />
 
 <%-- Main Content Section --%>
 <%-- This has been source ordered to come first in the markup (and on small devices)
@@ -49,8 +49,8 @@
     </div>
   </wiki:CheckVersion>
 
-  <templateTags:Editor selector="${editorSelector}" pageContext="${pageContext}" />
+  <templateTags:Editor selector="${editorSelector}" wikiPageContext="${wikiPageContext}" />
 
 </div>
 
-<templateTags:EditClose/>
+<templateTags:EditClose wikiPageContext="${wikiPageContext}" />

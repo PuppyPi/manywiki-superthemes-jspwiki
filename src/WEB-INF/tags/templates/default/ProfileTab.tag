@@ -17,23 +17,16 @@
     under the License.
 --%>
 
-<%@ attribute name="pageContext" type="javax.servlet.jsp.PageContext" %>
-<%@ tag import="org.apache.wiki.api.core.*" %>
-<%@ tag import="org.apache.wiki.auth.*" %>
-<%@ tag import="org.apache.wiki.auth.user.*" %>
-<%-- <%@ tag errorPage="/Error.jsp" %> --%>
+<%@ attribute name="wikiPageContext" type="org.apache.wiki.api.core.Context" %>
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ tag import="javax.servlet.jsp.jstl.fmt.*" %>
+
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
-<%
-  /* dateformatting not yet supported by wiki:UserProfile tag - diy */
-  Context wikiContext = Context.findContext(pageContext);
-  UserManager manager = wikiContext.getEngine().getManager( UserManager.class );
-  UserProfile profile = manager.getUserProfile( wikiContext.getWikiSession() );
-%>
+
+<c:set var="profile" value="${wikiPageContext.currentUserProfile}" />
+
 <form method="post" accept-charset="UTF-8"
       action="<wiki:CheckRequestContext
      context='login'><wiki:Link jsp='Login.jsp' format='url'><wiki:Param name='tab'
@@ -157,14 +150,14 @@
      <div class="xform-group">
        <label class="control-label form-col-20"><fmt:message key="prefs.creationdate"/></label>
        <div class="form-control-static form-col-50">
- 	     <fmt:formatDate value="<%= profile.getCreated() %>" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
+ 	     <fmt:formatDate value="${profile.created}>" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
        </div>
      </div>
      <div class="xform-group">
        <label class="control-label form-col-20"><fmt:message key="prefs.profile.lastmodified"/></label>
        <div class="form-control-static form-col-50">
          <%--<wiki:UserProfile property="modified"/>--%>
- 	     <fmt:formatDate value="<%= profile.getLastModified() %>" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
+ 	     <fmt:formatDate value="${profile.lastModified}" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
        </div>
      </div>
      </div>

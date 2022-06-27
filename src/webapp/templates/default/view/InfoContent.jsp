@@ -26,7 +26,7 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<templateTags:ViewOpen/>
+<templateTags:ViewOpen wikiPageContext="${wikiPageContext}" />
 
 <div class="page-content">
 
@@ -186,7 +186,7 @@
     <%-- DIFF section --%>
     <wiki:CheckRequestContext context='diff'>
       <h4 data-activePane id="diff"><fmt:message key="diff.tab" /></h4>
-      <templateTags:DiffTab pageContext="${pageContext}" />
+      <templateTags:DiffTab wikiPageContext="${wikiPageContext}" />
     </wiki:CheckRequestContext>
 
   </div>
@@ -337,4 +337,4 @@
 
 </div>
 
-<templateTags:ViewClose/>
+<templateTags:ViewClose wikiPageContext="${wikiPageContext}" />
