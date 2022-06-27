@@ -26,13 +26,12 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<c:set var="wikiEngine"  value="${wikiPageContext.engine}" />
-<c:set var="skins"       value="${wikiEngine.listSkins}" />
-<c:set var="languages"   value="${wikiEngine.listLanguages}" />
-<c:set var="timezones"   value="${wikiEngine.listTimeZones}" />
-<c:set var="timeformats" value="${wikiEngine.listTimeFormats}" />
-<c:set var="editors"     value="${wikiEngine.editors}" />
-<c:set var="redirect"><wiki:Variable var='redirect' default='${wikiEngine.frontPage}' /></c:set>
+<c:set var="skins"       value="${wikiPageContext.listSkins}" />
+<c:set var="languages"   value="${wikiPageContext.listLanguages}" />
+<c:set var="timezones"   value="${wikiPageContext.listTimeZones}" />
+<c:set var="timeformats" value="${wikiPageContext.listTimeFormats}" />
+<c:set var="editors"     value="${wikiPageContext.engine.editors}" />
+<c:set var="redirect"><wiki:Variable var='redirect' default='${wikiPageContext.engine.frontPage}' /></c:set>
 
 <form action="<wiki:Link jsp='UserPreferences.jsp' format='url'><wiki:Param name='tab' value='prefs'/></wiki:Link>"
           id="preferences"  <%-- used by Prefs.js to set/reset the userpreferences cookie --%>
