@@ -1,5 +1,6 @@
-• remove Java code from tag files @,@
-	• especially pageContext!
+. remove Java code from tag files @,@
+
+• remove alllllll traces of pageContext!
 
 
 
