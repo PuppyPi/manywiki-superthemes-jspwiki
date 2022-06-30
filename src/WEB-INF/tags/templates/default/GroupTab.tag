@@ -92,7 +92,7 @@
     </thead>
     <tbody>
     
-    <c:forEach var="groupPrincipal" items="groupPrincipals">
+    <c:forEach var="groupPrincipal" items="${groupPrincipals}">
 	    <c:set var="name" value="${groupPrincipal.name}" />
 	    <c:set var="group" value="${wikiPageContext.getGroupByName(name)}" />
 	    <c:set var="memberPrincipals" value="${wikiPageContext.getGroupMembers(group)}" />
