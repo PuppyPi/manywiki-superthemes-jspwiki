@@ -18,7 +18,7 @@
 --%>
 
 <%@ attribute name="searchresults" type="java.util.List" %>
-<%@ attribute name="maxitems" type="int" %>
+<%@ attribute name="maxitems" type="java.lang.Integer" %>
 
 <%@ taglib uri="http://jspwiki.apache.org/tags" prefix="wiki" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
