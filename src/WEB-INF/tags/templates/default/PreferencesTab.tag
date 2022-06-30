@@ -26,10 +26,10 @@
 <fmt:setLocale value="${prefs.Language}" />
 <fmt:setBundle basename="org.apache.wiki.i18n.templates.default"/>
 
-<c:set var="skins"       value="${wikiPageContext.listSkins}" />
-<c:set var="languages"   value="${wikiPageContext.listLanguages}" />
-<c:set var="timezones"   value="${wikiPageContext.listTimeZones}" />
-<c:set var="timeformats" value="${wikiPageContext.listTimeFormats}" />
+<c:set var="skins"       value="${wikiPageContext.listSkins()}" />
+<c:set var="languages"   value="${wikiPageContext.listLanguages()}" />
+<c:set var="timezones"   value="${wikiPageContext.listTimeZones()}" />
+<c:set var="timeformats" value="${wikiPageContext.listTimeFormats()}" />
 <c:set var="editors"     value="${wikiPageContext.engine.editors}" />
 <c:set var="redirect"><wiki:Variable var='redirect' default='${wikiPageContext.engine.frontPage}' /></c:set>
 
