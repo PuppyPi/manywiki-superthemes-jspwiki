@@ -150,7 +150,7 @@
      <div class="xform-group">
        <label class="control-label form-col-20"><fmt:message key="prefs.creationdate"/></label>
        <div class="form-control-static form-col-50">
- 	     <fmt:formatDate value="${profile.created}>" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
+ 	     <fmt:formatDate value="${profile.created}" pattern="${prefs.DateFormat}" timeZone="${prefs.TimeZone}" />
        </div>
      </div>
      <div class="xform-group">
