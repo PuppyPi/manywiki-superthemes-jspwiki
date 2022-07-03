@@ -188,7 +188,7 @@
         To avoid this, double escape the & char =>  so &amp;lt; is converted to &lt;
         --%>
         <textarea name="htmlPageText"
-             autofocus="autofocus">${wiki:escapeHTML(pageAsHtml)}</textarea>
+             autofocus="autofocus" cols="100" rows="30">${wiki:escapeHTML(pageAsHtml)}</textarea>  <%-- FIXME-PP Fix it so we don't need to hardcode the initial textarea size again! (this is a regression bug that wasn't present in JSPWiki!) --%>
       </div>
       <div class="ajaxpreview">Preview comes here</div>
   </div>
