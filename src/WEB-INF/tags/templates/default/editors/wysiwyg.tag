@@ -75,7 +75,7 @@
     <ul class="dropdown-menu" data-hover-parent="div">
       <wiki:CheckRequestContext context="!comment">
       <li class="dropdown-header">
-        <input class="form-control" type="text" name="changenote" id="changenote" size="80" maxlength="80"
+        <input class="form-control" type="text" name="changenote" id="changenote" size="80"
              placeholder="<fmt:message key='editor.plain.changenote'/>"
              value="${changenote}" />
       </li>
@@ -86,7 +86,7 @@
         <fmt:message key="editor.commentsignature"/>
       </li>
       <li class="dropdown-header">
-        <input class="form-control" type="text" name="author" id="authorname"  size="80" maxlength="80"
+        <input class="form-control" type="text" name="author" id="authorname"  size="80"
              placeholder="<fmt:message key='editor.plain.name'/>"
              value="${author}" />
       </li>
@@ -97,7 +97,7 @@
         </label>
       </li>
       <li  class="dropdown-header">
-        <input class="form-control" type="text" name="link" id="link" size="80" maxlength="80"
+        <input class="form-control" type="text" name="link" id="link" size="80"
                placeholder="<fmt:message key='editor.plain.email'/>"
                value="${link}" />
       </li>
